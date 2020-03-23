@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import World from "../GamePage/world";
 // import ReactPlayer from "react-player";
-// import Timer from "../src/components/timer/"
+import Timer from "../GamePage/timer"
 
 export class GamePage extends Component {
     render() {
         return (
             <div>
             <World />
-            {/* <Timer/> */}
+            <Timer/>
             {/* <ReactPlayer
               width="0%"
               height="0%"
