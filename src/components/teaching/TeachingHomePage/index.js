@@ -16,18 +16,16 @@ import { CREATE, UPDATE, DELETE, EMPTY } from '../../../utils/constants';
  * This component displays the homepage for a teacher. It contains a welcome greeting and list of topics.
  */
 class TeachingHomePage extends Component {
-    constructor(props) {
-        super(props);
+    state = {
+        modalForm: {
+            isVisible: false,
+            type: null,
+            selectedTopic: null,
+        },
+    }
 
-        props.listTopics();
-
-        this.state = {
-            modalForm: {
-                isVisible: false,
-                type: null,
-                selectedTopic: null,
-            },
-        }
+    componentDidMount() {
+        this.props.listTopics();
     }
 
     openModalForm = (type, selectedTopic) => {

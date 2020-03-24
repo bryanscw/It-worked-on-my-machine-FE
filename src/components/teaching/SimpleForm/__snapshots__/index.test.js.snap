@@ -8,11 +8,14 @@ exports[`should take a snapshot 1`] = `
     <div
       class="form-group"
     >
-      <label>
+      <label
+        for="simpleForm-title"
+      >
         Title
       </label>
       <input
         class="form-control"
+        id="simpleForm-title"
         name="title"
         type="text"
         value=""
@@ -21,14 +24,15 @@ exports[`should take a snapshot 1`] = `
     <div
       class="form-group"
     >
-      <label>
+      <label
+        for="simpleForm-description"
+      >
         Description
       </label>
-      <input
+      <textarea
         class="form-control"
+        id="simpleForm-description"
         name="description"
-        type="text"
-        value=""
       />
     </div>
     <div

@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+/**
+ * This component displays a page when requested content is not found.
+ */
 export default function NotFoundPage() {
     return (
         <div className="container">

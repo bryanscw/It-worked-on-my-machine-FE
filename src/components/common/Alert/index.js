@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 
 import { closeError, selectErrorMessage, selectIsVisible } from '../../../redux/ducks/errors';
 import './styles.css';
-
+/**
+ * This component displays alerts when there is an error.
+ */
 export class Alert extends Component {
     render() {
         const {

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should take a snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <h1>
+      You have logged out
+    </h1>
+    <p>
+      Thanks for visiting.
+    </p>
+    <a
+      class="btn btn-primary"
+      href="/login"
+    >
+      Login
+    </a>
+  </div>
+</DocumentFragment>
+`;

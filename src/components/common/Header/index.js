@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
-
+/**
+ * This component displays the header of the web application.
+ */
 export class Header extends Component {
     render() {
         const {

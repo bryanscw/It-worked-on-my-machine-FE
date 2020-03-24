@@ -110,7 +110,7 @@ export class QuestionForm extends Component {
                 {
                     options.map((option, i) => 
                         <div className="form-group d-flex" key={i}>
-                            <div className="form-check">
+                            <div className="form-check mr-1">
                                 <input
                                     className="form-check-input"
                                     type="radio"

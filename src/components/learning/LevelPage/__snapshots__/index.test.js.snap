@@ -29,6 +29,9 @@ exports[`should take a snapshot 1`] = `
     <h1>
       Adding 1 to 100
     </h1>
+    <p>
+      Smol numbers.
+    </p>
     <div
       class="mb-4"
     >

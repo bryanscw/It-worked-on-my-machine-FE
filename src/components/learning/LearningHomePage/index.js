@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 
 import Loader from '../../common/Loader';
 import { listTopics, selectTopics, selectTopicsLoading, selectTopicsFailed } from '../../../redux/ducks/topics';
-
+/**
+ * This component displays the learning home page for a student. It contains a list of study topics to choose from
+ */
 class LearningHomePage extends Component {
-    constructor(props) {
-        super(props);
-
-        props.listTopics();
+    componentDidMount() {
+        this.props.listTopics();
     }
 
     render() {
@@ -48,12 +48,17 @@ class LearningHomePage extends Component {
 }
 
 LearningHomePage.propTypes = {
+    /** The currently logged in user */
     user: PropTypes.object.isRequired,
-    topicsLoading: PropTypes.bool.isRequired,
-    topicsFailed: PropTypes.bool.isRequired,
-    topics: PropTypes.array.isRequired,
 
-    listTopics: PropTypes.func.isRequired,
+    /** A boolean to determine if the topics are still being loaded by the `listTopics` action creator (true: still loading, false: fully loaded) */
+    topicsLoading: PropTypes.bool.isRequired,
+    /** A boolean to determine if the topics failed to be loaded by the `listTopics` action creator (true: still loading or failed to load, false: successful load) */
+    topicsFailed: PropTypes.bool.isRequired,
+    /** An array of topic objects loaded by the `listTopics` action creaor */
+    topics: PropTypes.array.isRequired,
+    /** An action creator for listing topics */
+    listTopics: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

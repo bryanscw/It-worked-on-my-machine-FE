@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import Player from "../../Player";
 import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import renderer from "react-test-renderer";
 
 afterEach(cleanup);
 

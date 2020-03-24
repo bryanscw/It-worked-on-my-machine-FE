@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
-
+/**
+ * This component displays the students reports for a teacher. It contains a downloadable csv file.
+ */
 export class StudentReportsPage extends Component {
     render() {
         const {
@@ -78,6 +80,7 @@ export class StudentReportsPage extends Component {
 }
 
 StudentReportsPage.propTypes = {
+     /** An object containing the topic ID and level ID based on which data is displayed */
     match: PropTypes.object.isRequired,
 };
 

@@ -15,9 +15,7 @@ beforeEach(() => {
                     id: 1,
                     title: "Adding 1 to 100",
                     description: "Smol numbers.",
-                    topic: {
-                        id: 1
-                    },
+                    topic_id: 1,
                     playable: true
                 }
             });
@@ -78,9 +76,7 @@ it('should not display a unplayable level', async () => {
             id: 1,
             title: "Adding 1 to 100",
             description: "Smol numbers.",
-            topic: {
-                id: 1
-            },
+            topic_id: 1,
             playable: false
         }
     });

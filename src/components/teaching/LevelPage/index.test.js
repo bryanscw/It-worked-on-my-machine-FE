@@ -16,9 +16,7 @@ beforeEach(() => {
                     title: "Adding 1 to 100",
                     description: "Smol numbers.",
                     playable: true,
-                    topic: {
-                        id: 1
-                    }
+                    topic_id: 1
                 }
             });
 
@@ -91,7 +89,7 @@ it('should load and display the learning material and questions', async () => {
     expect(questions).toBeTruthy();
 })
 
-it('should not display edit or delete buttons if playable', async () => {
+it('should not display edit or delete buttons and should display view student reports if playable', async () => {
     const { getByText, container } = renderWithReduxRouter(<LevelPage match={matchObject} />);
     
     await waitForElement(() => getByText('Learning Material'));
@@ -102,6 +100,9 @@ it('should not display edit or delete buttons if playable', async () => {
 
     const deleteButton = container.querySelector('[data-icon="trash"]');
     expect(deleteButton).toBeFalsy();
+
+    const viewStudentReports = await waitForElement(() => getByText('View Student Reports'));
+    expect(viewStudentReports).toBeTruthy();
 });
 
 it('should display edit or delete buttons if unplayable', async () => {
@@ -113,9 +114,7 @@ it('should display edit or delete buttons if unplayable', async () => {
                     title: "Adding 1 to 100",
                     description: "Smol numbers.",
                     playable: false,
-                    topic: {
-                        id: 1
-                    }
+                    topic_id: 1
                 }
             });
 
@@ -154,7 +153,7 @@ it('should display edit or delete buttons if unplayable', async () => {
         return Promise.reject(new Error('not found'));
     });
     
-    const { getByText, container } = renderWithReduxRouter(<LevelPage match={matchObject} />);
+    const { getByText, container, queryByText } = renderWithReduxRouter(<LevelPage match={matchObject} />);
     
     await waitForElement(() => getByText('Learning Material'));
     await waitForElement(() => getByText('Questions'));
@@ -164,4 +163,10 @@ it('should display edit or delete buttons if unplayable', async () => {
 
     const deleteButton = await waitForElement(() => container.querySelector('[data-icon="trash"]'));
     expect(deleteButton).toBeTruthy();
+
+    const publishLevel = queryByText('Publish Level');
+    expect(publishLevel).toBeTruthy();
+
+    const viewStudentReports = queryByText('View Student Reports');
+    expect(viewStudentReports).toBeFalsy();
 });

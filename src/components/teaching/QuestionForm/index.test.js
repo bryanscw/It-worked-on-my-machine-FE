@@ -7,4 +7,4 @@ afterEach(cleanup);
 it('should take a snapshot', () => {
     const { asFragment } = render(<QuestionForm />);
     expect(asFragment()).toMatchSnapshot();
-})
+});

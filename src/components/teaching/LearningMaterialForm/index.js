@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { EMPTY } from '../../../utils/constants';
 
+/**
+ * This component displays a form for teachers to add or update learning materials
+ */
 export class LearningMaterialForm extends Component {
     emptyState = {
         title: '',
@@ -71,8 +74,9 @@ export class LearningMaterialForm extends Component {
         return (
             <form className="form" onSubmit={this.onSubmit}>
                 <div className="form-group">
-                    <label>Title</label>
+                    <label htmlFor="learningMaterial-title">Title</label>
                     <input
+                        id="learningMaterial-title"
                         className="form-control"
                         type="text"
                         name="title"
@@ -81,18 +85,20 @@ export class LearningMaterialForm extends Component {
                         />
                 </div>
                 <div className="form-group">
-                    <label>Description</label>
-                    <input
+                    <label htmlFor="learningMaterial-description">Description</label>
+                    <textarea
+                        id="learningMaterial-description"
                         className="form-control"
-                        type="text"
                         name="description"
                         onChange={this.onChange}
                         value={description}
                         />
                 </div>
                 <div className="form-group">
-                    <label>Link</label>
+                    <label htmlFor="learningMaterial-link">Link</label>
+                    <p className="small text-secondary">Must be a youtube embeded link (e.g. https://www.youtube.com/embed/AQ7THUKx6Es)</p>
                     <input
+                        id="learningMaterial-link"
                         className="form-control"
                         type="text"
                         name="link"

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { createApiReducer, createApiAction, STATUSES, METHODS } from './apiHelper';
 import { API_URL } from '../../utils/constants';
-import { displayErrorAction } from './errors';
+import { displayError } from './errors';
 import { getTokenConfig } from './authHelper';
 
 const ENTITY_NAME = 'questions';
@@ -11,33 +11,35 @@ const ENTITY_NAME = 'questions';
 const questionsReducer = createApiReducer(ENTITY_NAME);
 export default questionsReducer;
 
-const questionAdapter = question => {
+const questionReader = question => {
+    const optionKeys = Object.keys(question.options);
+    let optionArr = [];
+    let answerForArr = null;
+
+    for (const key of optionKeys) {
+        if (parseInt(key) === question.answer)   
+            answerForArr = optionArr.length;
+        
+        optionArr.push(question.options[key]);
+    }
+
+    return {
+        ...question,
+        options: optionArr,
+        answer: answerForArr,
+    };
+}
+
+const questionWriter = question => {
     let optionsObj = {};
 
     for (let i = 0; i < question.options.length; i++)
         optionsObj[i] = question.options[i];
 
-    question.options = optionsObj;
-
-    return {...question, coordinates: {
-        x: 0,
-        y: 0,
-    }};
-}
-
-const questionReader = question => {
-    const optionKeys = Object.keys(question.options);
-    let optionArr = [];
-
-    for (const key of optionKeys)
-        optionArr[parseInt(key)] = question.options[key];
-
-    question.options = optionArr;
-
-    return {...question, coordinates: {
-        x: 0,
-        y: 0,
-    }};
+    return {
+        ...question,
+        options: optionsObj,
+    };
 }
 
 // OPERATIONS
@@ -47,14 +49,20 @@ export const createQuestion = (levelId, question) => (dispatch, getState) => {
     axios
         .post(
             `${API_URL}/gameMaps/${levelId}/${ENTITY_NAME}/create/`,
-            questionAdapter(question),
+            {
+                ...questionWriter(question),
+                coordinates: {
+                    x: 0,
+                    y: 0
+                }
+            },
             getTokenConfig(getState),
         )
         .then(res => {
             dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.CREATE, res.data));
         })
         .catch(err => {
-            dispatch(displayErrorAction("Unable to create question"));
+            displayError("Unable to create question")(dispatch);
             dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.CREATE));
         });
     ;
@@ -72,7 +80,7 @@ export const retrieveQuestion = (levelId, questionId) => (dispatch, getState) =>
             dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.RETRIEVE, res.data));
         })
         .catch(err => {
-            dispatch(displayErrorAction("Unable to retrieve question"));
+            displayError("Unable to retrieve question")(dispatch);
             dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.RETRIEVE));
         });
     ;
@@ -84,14 +92,14 @@ export const updateQuestion = (levelId, question) => (dispatch, getState) => {
     axios
         .patch(
             `${API_URL}/gameMaps/${levelId}/${ENTITY_NAME}/${question.id}/`,
-            questionAdapter(question),
+            questionWriter(question),
             getTokenConfig(getState),
         )
         .then(res => {
             dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.UPDATE, res.data));
         })
         .catch(err => {
-            dispatch(displayErrorAction("Unable to update question"));
+            displayError("Unable to update question")(dispatch);
             dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.UPDATE));
         });
 };
@@ -112,7 +120,7 @@ export const deleteQuestion = (levelId, questionId) => (dispatch, getState) => {
             }
         })
         .catch(err => {
-            dispatch(displayErrorAction("Unable to delete question"));
+            displayError("Unable to delete question")(dispatch);
             dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.DELETE));
         });
 };
@@ -129,10 +137,9 @@ export const listQuestions = (levelId) => (dispatch, getState) => {
             dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.LIST, res.data));
         })
         .catch(err => {
-            dispatch(displayErrorAction("Unable to retrieve questions"));
+            displayError("Unable to retrieve questions")(dispatch);
             dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.LIST));
         });
-    ;
 };
 
 // SELECTORS

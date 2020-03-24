@@ -43,7 +43,16 @@ export function closeErrorAction() {
 }
 
 // OPERATIONS
-export const displayError = errorMessage => dispatch => dispatch(displayErrorAction(errorMessage));
+export const displayError = errorMessage => dispatch => {
+    dispatch(displayErrorAction(errorMessage));
+
+    // Dismiss error alert after 3 seconds
+    setTimeout(() => {
+        dispatch(closeErrorAction());
+        console.log("close");
+    }, 3000);
+};
+
 export const closeError = () => dispatch => dispatch(closeErrorAction());
 
 // SELECTORS

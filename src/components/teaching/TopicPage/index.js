@@ -13,21 +13,22 @@ import { retrieveTopic, selectTopic, selectTopicLoading, selectTopicFailed } fro
 import { createLevel, updateLevel, deleteLevel, listLevels, selectLevelsLoading, selectLevelsFailed, selectLevels } from '../../../redux/ducks/levels';
 import { CREATE, UPDATE, DELETE, EMPTY } from '../../../utils/constants';
 
+/**
+ * This component displays a topic page for a teacher. It contains a list of levels for the topic. Teachers may add, update, or delete levels.
+ */
 class TopicPage extends Component {
-    constructor(props) {
-        super(props);
+    state = {
+        modalForm: {
+            isVisible: false,
+            type: null,
+            selectedLevel: null,
+        },
+    }
 
-        const topicId = parseInt(props.match.params.topicId);
-        props.retrieveTopic(topicId);
-        props.listLevels(topicId);
-
-        this.state = {
-            modalForm: {
-                isVisible: false,
-                type: null,
-                selectedLevel: null,
-            },
-        }
+    componentDidMount() {
+        const topicId = parseInt(this.props.match.params.topicId);
+        this.props.retrieveTopic(topicId);
+        this.props.listLevels(topicId);
     }
 
     openModalForm = (type, selectedLevel) => {
@@ -127,6 +128,7 @@ class TopicPage extends Component {
                     <FontAwesomeIcon icon={faChevronLeft}/> Back to Home
                 </Link>
                 <h1>{topic.title}</h1>
+                <p>{topic.description}</p>
                 <h2>Levels</h2>
                 <div className="mb-4">
                     <button className="btn btn-primary" onClick={() => this.openModalForm(CREATE, null)}>
@@ -160,19 +162,31 @@ class TopicPage extends Component {
 }
 
 TopicPage.propTypes = {
+    /** An object containing the topic ID and level ID based on which data is displayed */
     match: PropTypes.object.isRequired,
 
+    /** A boolean to determine if the topic is still being loaded by the `retrieveTopic` action creator (true: still loading, false: fully loaded) */
     topicLoading: PropTypes.bool.isRequired,
+    /** A boolean to determine if the topic failed to be loaded by the `retrieveTopic` action creator (true: still loading or failed to load, false: successful load) */
     topicFailed: PropTypes.bool.isRequired,
+    /** A topic object loaded by the `retrieveTopic` action creator */
     topic: PropTypes.object,
+    /** A boolean to determine if the levels are still being loaded by the `listLevels` action creator (true: still loading, false: fully loaded) */
     levelsLoading: PropTypes.bool.isRequired,
+    /** A boolean to determine if the topics failed to be loaded by the `listLevels` action creator (true: still loading or failed to load, false: successful load) */
     levelsFailed: PropTypes.bool.isRequired,
+    /** An array of topic objects loaded by the `listLevels` action creaor */
     levels: PropTypes.array.isRequired,
 
+    /** An action creator for retrieving topic name */
     retrieveTopic: PropTypes.func.isRequired,
+    /** An action creator for creating a level */
     createLevel: PropTypes.func.isRequired,
+    /** An action creator for updating a level */
     updateLevel: PropTypes.func.isRequired,
+    /** An action creator for deleting a level */
     deleteLevel: PropTypes.func.isRequired,
+    /** An action creator for listing levels */
     listLevels: PropTypes.func.isRequired,
 };
 

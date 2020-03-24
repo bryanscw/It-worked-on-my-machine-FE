@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { createApiReducer, createApiAction, STATUSES, METHODS } from './apiHelper';
 import { API_URL } from '../../utils/constants';
-import { displayErrorAction } from './errors';
+import { displayError } from './errors';
 import { getTokenConfig } from './authHelper';
 
 const ENTITY_NAME = 'learningMaterials';
@@ -25,7 +25,7 @@ export const createLearningMaterial = (levelId, learningMaterial) => (dispatch, 
             dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.CREATE, res.data));
         })
         .catch(err => {
-            dispatch(displayErrorAction("Unable to create learning material"));
+            displayError("Unable to create learning material")(dispatch);
             dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.CREATE));
         });
     ;
@@ -43,7 +43,7 @@ export const retrieveLearningMaterial = (levelId, learningMaterialId) => (dispat
             dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.RETRIEVE, res.data));
         })
         .catch(err => {
-            dispatch(displayErrorAction("Unable to retrieve learning material"));
+            displayError("Unable to retrieve learning material")(dispatch);
             dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.RETRIEVE));
         });
     ;
@@ -62,7 +62,7 @@ export const updateLearningMaterial = (levelId, learningMaterial) => (dispatch, 
             dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.UPDATE, res.data));
         })
         .catch(err => {
-            dispatch(displayErrorAction("Unable to update learning material"));
+            displayError("Unable to update learning material")(dispatch);
             dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.UPDATE));
         });
 };
@@ -83,7 +83,7 @@ export const deleteLearningMaterial = (levelId, learningMaterialId) => (dispatch
             }
         })
         .catch(err => {
-            dispatch(displayErrorAction("Unable to delete learning material"));
+            displayError("Unable to delete learning material")(dispatch);
             dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.DELETE));
         });
 };
@@ -100,7 +100,7 @@ export const listLearningMaterials = (levelId) => (dispatch, getState) => {
             dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.LIST, res.data));
         })
         .catch(err => {
-            dispatch(displayErrorAction("Unable to retrieve learning materials"));
+            displayError("Unable to retrieve learning materials")(dispatch);
             dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.LIST));
         });
     ;

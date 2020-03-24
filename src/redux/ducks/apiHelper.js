@@ -93,6 +93,7 @@ export function createApiReducer(entityName) {
                                 [actionMethod]: false
                             },
                             items: state.items.map(item => (item.id === action.payload.id) ? action.payload : item),
+                            item: action.payload,
                         }
 
                     case METHODS.DELETE:

@@ -29,6 +29,9 @@ exports[`should take a snapshot 1`] = `
     <h1>
       Addition
     </h1>
+    <p>
+      Putting 2 and 2 together.
+    </p>
     <h2>
       Levels
     </h2>

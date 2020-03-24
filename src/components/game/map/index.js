@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { SPRITE_SIZE } from "../../../../utils/constants";
+import React from "react";
+import { SPRITE_SIZE } from "../../../utils/constants";
 import "./styles.css";
 
 //action

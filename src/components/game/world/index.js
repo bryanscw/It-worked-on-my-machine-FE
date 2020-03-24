@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import Player from "../player";
 import Map from "../map";
-import { tiles } from "../../../../utils/data/maps/1";
-import { SPRITE_SIZE } from "../../../../utils/constants";
+import { tiles } from "../../../utils/data/maps/1";
+import { SPRITE_SIZE } from "../../../utils/constants";
 import Popup from "../popup/popup";
-
+/**
+ * This component displays the world in the game for the user. It renders the player and map.
+ */
 class World extends Component {
   constructor(props) {
     super(props);

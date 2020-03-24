@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { createApiReducer, createApiAction, STATUSES, METHODS } from './apiHelper';
 import { API_URL } from '../../utils/constants';
-import { displayErrorAction } from './errors';
+import { displayError } from './errors';
 import { getTokenConfig } from './authHelper';
 
 const ENTITY_NAME = 'topics';
@@ -25,7 +25,7 @@ export const createTopic = topic => (dispatch, getState) => {
             dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.CREATE, res.data));
         })
         .catch(err => {
-            dispatch(displayErrorAction("Unable to create topic"));
+            displayError("Unable to create topic")(dispatch);
             dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.CREATE));
         });
     ;
@@ -43,7 +43,7 @@ export const retrieveTopic = topicId => (dispatch, getState) => {
             dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.RETRIEVE, res.data));
         })
         .catch(err => {
-            dispatch(displayErrorAction("Unable to retrieve topic"));
+            displayError("Unable to retrieve topic")(dispatch);
             dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.RETRIEVE));
         });
     ;
@@ -61,7 +61,7 @@ export const updateTopic = topic => (dispatch, getState) => {
             dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.UPDATE, res.data));
         })
         .catch(err => {
-            dispatch(displayErrorAction("Unable to update topic"));
+            displayError("Unable to update topic")(dispatch);
             dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.UPDATE));
         });
 };
@@ -82,7 +82,7 @@ export const deleteTopic = topicId => (dispatch, getState) => {
             }
         })
         .catch(err => {
-            dispatch(displayErrorAction("Unable to delete topic"));
+            displayError("Unable to delete topic")(dispatch);
             dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.DELETE));
         });
 };
@@ -99,7 +99,7 @@ export const listTopics = () => (dispatch, getState) => {
             dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.LIST, res.data));
         })
         .catch(err => {
-            dispatch(displayErrorAction("Unable to retrieve topics"));
+            displayError("Unable to retrieve topics")(dispatch);
             dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.LIST));
         });
 };

@@ -34,6 +34,9 @@ exports[`should take a snapshot 1`] = `
         Playable
       </span>
     </h1>
+    <p>
+      Smol numbers.
+    </p>
     <div
       class="mb-4"
     >

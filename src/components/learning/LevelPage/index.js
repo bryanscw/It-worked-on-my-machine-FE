@@ -3,18 +3,20 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types'
 
 import Loader from '../../common/Loader';
 import LearningMaterial from '../LearningMaterial';
 import { retrieveLevel, selectPlayableLevel, selectLevelLoading, selectLevelFailed } from '../../../redux/ducks/levels';
 
+/**
+ * This component displays the level page for a student. It contains the LearningMaterial component and an option to play the level and view leaderboard.
+ */
 export class LevelPage extends Component {
-    constructor(props) {
-        super(props);
-
-        const topicId = parseInt(props.match.params.topicId);
-        const levelId = parseInt(props.match.params.levelId);
-        props.retrieveLevel(topicId, levelId);
+    componentDidMount() {
+        const topicId = parseInt(this.props.match.params.topicId);
+        const levelId = parseInt(this.props.match.params.levelId);
+        this.props.retrieveLevel(topicId, levelId);
     }
     
     render() {
@@ -36,12 +38,13 @@ export class LevelPage extends Component {
 
         return (
             <div className="container">
-                <Link className="btn btn-light mb-2" to={`/topics/${level.topic.id}/`}>
+                <Link className="btn btn-light mb-2" to={`/topics/${level.topic_id}/`}>
                     <FontAwesomeIcon icon={faChevronLeft}/> Back to Topic Page
                 </Link>
                 <h1>{level.title}</h1>
+                <p>{level.description}</p>
                 <div className="mb-4">
-                    <Link className="btn btn-primary" to={`/topics/${level.topic.id}/levels/${level.id}/leaderboard`}>
+                    <Link className="btn btn-primary" to={`/topics/${level.topic_id}/levels/${level.id}/leaderboard`}>
                         View Leaderboard
                     </Link>
                 </div>
@@ -61,7 +64,7 @@ export class LevelPage extends Component {
                             <LearningMaterial levelId={level.id} />
                         </div>
                 }
-                <Link className="btn btn-primary mb-4" to={`/topics/${level.topic.id}/levels/${level.id}/game`}>
+                <Link className="btn btn-primary mb-4" to={`/topics/${level.topic_id}/levels/${level.id}/game`}>
                     Play Game
                 </Link>
             </div>
@@ -69,6 +72,21 @@ export class LevelPage extends Component {
     }
 }
 
+LevelPage.propTypes = {
+    /** An object containing the topic ID and level ID based on which data is displayed */
+    match: PropTypes.object.isRequired,
+
+    /** A boolean to determine if the level is still being loaded by the `retrieveLevel` action creator (true: still loading, false: fully loaded) */
+    levelLoading: PropTypes.bool.isRequired,
+    /** A boolean to determine if the level failed to be loaded by the `retrieveLevel` action creator (true: still loading or failed to load, false: successful load) */
+    levelFailed: PropTypes.bool.isRequired,
+    /** A level object loaded by the `retrieveLevel` action creator */
+    level: PropTypes.object,
+
+    /** An action creator for retrieving level name */
+    retrieveLevel: PropTypes.func.isRequired,
+
+};
 const mapStateToProps = state => ({
     levelLoading: selectLevelLoading(state),
     levelFailed: selectLevelFailed(state),

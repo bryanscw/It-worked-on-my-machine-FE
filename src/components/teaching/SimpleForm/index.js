@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { EMPTY } from '../../../utils/constants';
-
 export class SimpleForm extends Component {
     emptyState = {
         title: '',
@@ -67,8 +66,9 @@ export class SimpleForm extends Component {
         return (
             <form className="form" onSubmit={this.onSubmit}>
                 <div className="form-group">
-                    <label>Title</label>
+                    <label htmlFor="simpleForm-title">Title</label>
                     <input
+                        id="simpleForm-title"
                         className="form-control"
                         type="text"
                         name="title"
@@ -77,10 +77,10 @@ export class SimpleForm extends Component {
                         />
                 </div>
                 <div className="form-group">
-                    <label>Description</label>
-                    <input
+                    <label htmlFor="simpleForm-description">Description</label>
+                    <textarea
+                        id="simpleForm-description"
                         className="form-control"
-                        type="text"
                         name="description"
                         onChange={this.onChange}
                         value={description}

@@ -1,20 +1,15 @@
-import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React from 'react';
+import { Route } from 'react-router-dom';
 
-import Logout from '../../accounts/Logout';
+import AdminTable from '../AdminTable';
 
-export class AccountsRouter extends Component {
-    render() {
-        return (
-            <Switch>
-                <Route
-                    path="/logout"
-                    exact
-                    component={Logout}
-                    />
-            </Switch>
-        )
-    }
-}
+const AccountsRouter = [
+    <Route
+        key="AdminTable"
+        path= "/"
+        exact
+        component={AdminTable}
+        />,
+];
 
 export default AccountsRouter

@@ -1,5 +1,5 @@
 export const getTokenConfig = getState => {
-    const token = getState().authReducer.user.accessToken
+    const token = getState().authReducer.access_token
 
     const config = {
         headers: {

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
 
 import Loader from '../../common/Loader';
 import ModalForm from '../../common/ModalForm';
@@ -10,20 +11,21 @@ import DeleteForm from '../DeleteForm';
 import { createQuestion, listQuestions, updateQuestion, deleteQuestion, selectQuestions, selectQuestionsFailed, selectQuestionsLoading } from '../../../redux/ducks/questions';
 import { CREATE, UPDATE, DELETE, EMPTY } from '../../../utils/constants';
 
+/**
+ * This component displays the list of questions for a particular level. Teachers can add, update, and delete questions.
+ */
 export class QuestionsList extends Component {
-    constructor(props) {
-        super(props);
-        
-        const levelId = props.levelId
-        props.listQuestions(levelId);
-        
-        this.state = {
-            modalForm: {
-                isVisible: false,
-                type: null,
-                selectedQuestion: null,
-            },
-        }
+    state = {
+        modalForm: {
+            isVisible: false,
+            type: null,
+            selectedQuestion: null,
+        },
+    }
+
+    componentDidMount() {
+        const levelId = this.props.levelId
+        this.props.listQuestions(levelId);
     }
 
     openModalForm = (type, selectedQuestion) => {
@@ -149,6 +151,28 @@ export class QuestionsList extends Component {
         )
     }
 }
+
+QuestionsList.propTypes = {
+    /** A string containing the level ID of the level*/
+    levelId: PropTypes.number.isRequired,
+    /** A boolean to determine if the questions are still being loaded by the `listQuestions` action creator (true: still loading, false: fully loaded) */
+    questionsLoading: PropTypes.bool.isRequired,
+    /** A boolean to determine if the questions failed to be loaded by the `listQuestions` action creator (true: still loading or failed to load, false: successful load) */
+    questionsFailed: PropTypes.bool.isRequired,
+    /** An array of question objects loaded by the `listQuestions` action creator */
+    questions: PropTypes.array,
+    /** A boolean to determine if the game is playable or unplayable*/
+    playable: PropTypes.bool.isRequired,
+
+    /** An action creator for creating a question*/
+    createQuestion: PropTypes.func.isRequired,
+    /** An action creator for updating a question*/
+    updateQuestion: PropTypes.func.isRequired,
+    /** An action creator for deleting a question */
+    deleteQuestion: PropTypes.func.isRequired,
+    /** An action creator for listing questions */
+    listQuestions: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = state => ({
     questionsLoading: selectQuestionsLoading(state),

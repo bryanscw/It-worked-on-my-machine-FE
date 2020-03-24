@@ -1,14 +1,15 @@
 import React from "react";
 import Player from "../../player";
-import Popup from "../../Popup";
+import Popup from "../../popup/popup";
 import Map from "../../map";
-import { mount } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+// import { mount } from "enzyme";
+// import Adapter from "enzyme-adapter-react-16";
 import World from "../../world";
 import ReactDOM from "react-dom";
-import { configure } from "enzyme";
+import { cleanup } from "@testing-library/react";
+// import { configure } from "enzyme";
 
-configure({ adapter: new Adapter() });
+// configure({ adapter: new Adapter() });
 
 // const Map = {
 //   keyup: null
@@ -17,10 +18,12 @@ configure({ adapter: new Adapter() });
 //   Map[event] = cb;
 // });
 // const component = mount(<World />);
-// // const wrapper = shallow(<World />);
+// const wrapper = shallow(<World />);
 // // simulate event
 // Map.keyup({ keyCode: 27 });
 // expect(component.hidePopup.toHaveBeenCalled());
+
+afterEach(cleanup);
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
