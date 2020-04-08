@@ -49,44 +49,52 @@ exports[`should take a snapshot 1`] = `
         data-toggle="collapse"
         type="button"
       >
-        View Learning Material
+        View Learning Materials
       </button>
       <div
         class="collapse mb-4"
         id="learningMaterialCollapse"
       >
         <h2>
-          Learning Material
+          Learning Materials
         </h2>
         <div
-          class="card"
+          class="row"
         >
           <div
-            class="video-box card-img-top"
+            class="col-lg-6 mb-4"
           >
-            <div>
-              <iframe
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen=""
-                frameborder="0"
-                src="https://www.youtube.com/embed/Fe8u2I3vmHU"
-                title="Learning Material Video"
-              />
+            <div
+              class="card h-100"
+            >
+              <div
+                class="video-box card-img-top"
+              >
+                <div>
+                  <iframe
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen=""
+                    frameborder="0"
+                    src="https://www.youtube.com/embed/Fe8u2I3vmHU"
+                    title="Learning Material Video"
+                  />
+                </div>
+              </div>
+              <div
+                class="card-body"
+              >
+                <h3
+                  class="card-title"
+                >
+                  Basic addition
+                </h3>
+                <p
+                  class="card-text"
+                >
+                  Interesting video
+                </p>
+              </div>
             </div>
-          </div>
-          <div
-            class="card-body"
-          >
-            <h3
-              class="card-title"
-            >
-              Basic addition
-            </h3>
-            <p
-              class="card-text"
-            >
-              Interesting video
-            </p>
           </div>
         </div>
       </div>

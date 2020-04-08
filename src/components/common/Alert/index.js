@@ -14,7 +14,7 @@ export class Alert extends Component {
         } = this.props;
 
         return (
-            <div className={`alert alert-danger ${isVisible ? 'alert-shown' : 'alert-hidden'}`} ref={alert => this.alert = alert}>
+            <div className={`alert alert-danger ${isVisible ? 'alert-shown' : 'alert-hidden'}`}>
                 <strong>Error:</strong> {errorMessage}
                 <button type="button" className="close" onClick={this.props.closeError}>
                     <span>&times;</span>

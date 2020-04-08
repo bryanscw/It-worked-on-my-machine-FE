@@ -1,35 +1,68 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { CSVLink } from 'react-csv';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
+
+import { fetchReport, selectReportLoading, selectReportFailed, selectReport } from '../../../redux/ducks/progress';
+import Loader from '../../common/Loader';
+
 /**
  * This component displays the students reports for a teacher. It contains a downloadable csv file.
  */
 export class StudentReportsPage extends Component {
+    componentDidMount() {
+        const levelId = parseInt(this.props.match.params.levelId);
+        this.props.fetchReport(levelId);
+    }
+
     render() {
         const {
-            match
+            match,
+            reportLoading,
+            reportFailed,
+            report
         } = this.props;
+
+        if (reportLoading)
+            return <Loader />;
+
+        if (reportFailed || !report)
+            return <Redirect to="/not-found" />;
 
         const topicId = parseInt(match.params.topicId);
         const levelId = parseInt(match.params.levelId);
 
-        let csvData = [
-            {
-                "Question": "1 + 2",
-                "Bob": 2,
-                "Joe": 3,
-                "Kristen": 3,
-            },
-            {
-                "Question": "1 + 3",
-                "Bob": 1,
-                "Joe": 3,
-                "Kristen": 3,
+        // Format CsvData
+        let csvData = [];
+
+        for (let i = 0; i < report.length; i++) {
+            const {
+                question: {
+                    questionText
+                },
+                attempts
+            } = report[i];
+
+            let csvRow = {
+                Question: questionText,
+            };
+
+            for (let j = 0; j < attempts.length; j++) {
+                const {
+                    user: {
+                        name
+                    },
+                    attemptCount
+                } = attempts[i];
+
+                csvRow[name] = attemptCount;
             }
-        ]
+
+            csvData.push(csvRow);
+        }
 
         return (
             <div className="container">
@@ -51,26 +84,30 @@ export class StudentReportsPage extends Component {
                     </thead>
                     <tbody>
                         {
-                            csvData.map(row => {
-                                let question = row["Question"]
+                            !reportFailed && report.length !== 0 && csvData.length !== 0
+                                ? csvData.map(row => {
+                                    let question = row["Question"]
 
-                                let sum = 0;
-                                let counter = 0;
+                                    let sum = 0;
+                                    let counter = 0;
 
-                                for (let key in row) {
-                                    if (key !== "Question") {
-                                        sum += row[key];
-                                        counter++;
+                                    for (let key in row) {
+                                        if (key !== "Question") {
+                                            sum += row[key];
+                                            counter++;
+                                        }
                                     }
-                                }
 
-                                return (
-                                    <tr key={question}>
-                                        <th scope="row">{question}</th>
-                                        <td>{(sum / counter).toFixed(2)}</td>
-                                    </tr>
-                                )
-                            })
+                                    return (
+                                        <tr key={question}>
+                                            <th scope="row">{question}</th>
+                                            <td>{(sum / counter).toFixed(2)}</td>
+                                        </tr>
+                                    )
+                                })
+                                : <tr>
+                                    <td colSpan="2">No results found.</td>
+                                </tr>
                         }
                     </tbody>
                 </table>
@@ -80,8 +117,24 @@ export class StudentReportsPage extends Component {
 }
 
 StudentReportsPage.propTypes = {
-     /** An object containing the topic ID and level ID based on which data is displayed */
-    match: PropTypes.object.isRequired,
+    /** An object containing the topic ID and level ID based on which data is displayed */
+   match: PropTypes.object.isRequired,
+
+   reportLoading: PropTypes.bool.isRequired,
+   reportFailed: PropTypes.bool,
+   report: PropTypes.array.isRequired,
+
+   fetchReport: PropTypes.func.isRequired,
 };
 
-export default StudentReportsPage
+const mapStateToProps = state => ({
+    reportLoading: selectReportLoading(state),
+    reportFailed: selectReportFailed(state),
+    report: selectReport(state),
+});
+
+const dispatchers = {
+    fetchReport,
+};
+
+export default connect(mapStateToProps, dispatchers)(StudentReportsPage);

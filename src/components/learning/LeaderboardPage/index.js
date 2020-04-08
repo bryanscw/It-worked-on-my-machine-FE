@@ -1,63 +1,38 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types'
+
+import { fetchLeaderboard, selectLeaderboardLoading, selectLeaderboardFailed, selectLeaderboard } from '../../../redux/ducks/progress';
+import Loader from '../../common/Loader';
 
 /**
  * This component displays the leaderboard for a level for a student. It is ranked based on completion time for a level.
  */
 export class LeaderboardPage extends Component {
+    componentDidMount() {
+        const levelId = parseInt(this.props.match.params.levelId);
+        this.props.fetchLeaderboard(levelId);
+    }
+
     render() {
         const {
-            match
+            match,
+            leaderboardLoading,
+            leaderboardFailed,
+            leaderboard
         } = this.props;
+
+        if (leaderboardLoading)
+            return <Loader />;
+
+        if (leaderboardFailed || !leaderboard)
+            return <Redirect to="/not-found" />;
 
         const topicId = parseInt(match.params.topicId);
         const levelId = parseInt(match.params.levelId);
-
-        let leaderboardData = [
-            {
-                "name": "Bob",
-                "timing": 10.2
-            },
-            {
-                "name": "Joe",
-                "timing": 11.2
-            },
-            {
-                "name": "Caleb",
-                "timing": 12.1
-            },
-            {
-                "name": "Cathy",
-                "timing": 13.1231
-            },
-            {
-                "name": "Sarah",
-                "timing": 14.321
-            },
-            {
-                "name": "May",
-                "timing": 15.123
-            },
-            {
-                "name": "Harry",
-                "timing": 16.143
-            },
-            {
-                "name": "Matthew",
-                "timing": 17.341
-            },
-            {
-                "name": "Clyde",
-                "timing": 19.241
-            },
-            {
-                "name": "Elizabeth",
-                "timing": 21.2321
-            }
-        ]
 
         return (
             <div className="container">
@@ -74,12 +49,18 @@ export class LeaderboardPage extends Component {
                     </thead>
                     <tbody>
                         {
-                            leaderboardData.map(row =>
-                                <tr key={row.name}>
-                                    <th scope="row">{row.name}</th>
-                                    <td>{row.timing.toFixed(2)}</td>
+                            leaderboard.length !== 0 && leaderboard 
+                                ? (
+                                    leaderboard.map(row =>
+                                        <tr key={row.name}>
+                                            <th scope="row">{row.name}</th>
+                                            <td>{row.timing.toFixed(2)}</td>
+                                        </tr>
+                                    )
+                                )
+                                : <tr>
+                                    <td colSpan="2">No results found.</td>
                                 </tr>
-                            )
                         }
                     </tbody>
                 </table>
@@ -91,6 +72,22 @@ export class LeaderboardPage extends Component {
 LeaderboardPage.propTypes = {
     /** An object containing the topic ID and level ID based on which data is displayed */
    match: PropTypes.object.isRequired,
+
+   leaderboardLoading: PropTypes.bool.isRequired,
+   leaderboardFailed: PropTypes.bool,
+   leaderboard: PropTypes.array.isRequired,
+
+   fetchLeaderboard: PropTypes.func.isRequired,
 };
 
-export default LeaderboardPage
+const mapStateToProps = state => ({
+    leaderboardLoading: selectLeaderboardLoading(state),
+    leaderboardFailed: selectLeaderboardFailed(state),
+    leaderboard: selectLeaderboard(state),
+});
+
+const dispatchers = {
+    fetchLeaderboard,
+};
+
+export default connect(mapStateToProps, dispatchers)(LeaderboardPage);

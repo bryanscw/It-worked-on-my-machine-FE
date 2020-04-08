@@ -31,6 +31,9 @@ const questionReader = question => {
 }
 
 const questionWriter = question => {
+    if (!('options' in question))
+        return question;
+
     let optionsObj = {};
 
     for (let i = 0; i < question.options.length; i++)

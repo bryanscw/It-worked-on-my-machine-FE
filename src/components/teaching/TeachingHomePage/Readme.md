@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 
 import { METHODS } from '../../../redux/ducks/apiHelper.js';
+import { withReduxRouter } from '../../../utils/mock.js';
 
 const initialState = {
     authReducer: {
@@ -35,15 +36,5 @@ const initialState = {
     }
 }
 
-const store = createStore(
-    (state, action) => state,
-    initialState,
-    applyMiddleware(thunk),
-);
-
-<Provider store={store}>
-    <Router>
-        <TeachingHomePage />
-    </Router>
-</Provider>
+withReduxRouter(<TeachingHomePage />, initialState).renderedComponent
 ```

@@ -8,6 +8,12 @@ import LeaderboardPage from '../LeaderboardPage';
 import GamePage from '../../game/GamePage';
 
 const LearningRouter = [
+    // To test out a specific game level, comment everything else out & uncomment this
+    // <Route
+    //     key="GamePage"
+    //     component={() => <GamePage match={{params: {topicId: "4", levelId: "11"}}}/>}
+    //     />,
+    
     <Route
         key="LearningHomePage"
         path="/"

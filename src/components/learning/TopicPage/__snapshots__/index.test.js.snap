@@ -37,20 +37,20 @@ exports[`should take a snapshot 1`] = `
     </h2>
     <div
       class="card mb-4"
-      href="#"
     >
       <div
         class="card-body"
       >
-        <a
-          href="/topics/1/levels/1"
+        <h3
+          class="card-title"
         >
-          <h3
-            class="card-title"
+          <a
+            href="/topics/1/levels/1"
           >
             Adding 1 to 100
-          </h3>
-        </a>
+          </a>
+           
+        </h3>
         <p
           class="card-text"
         >

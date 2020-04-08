@@ -15,7 +15,7 @@ beforeEach(() => {
                     id: 1,
                     title: "Adding 1 to 100",
                     description: "Smol numbers.",
-                    topic_id: 1,
+                    topic: 1,
                     playable: true
                 }
             });
@@ -65,7 +65,7 @@ it('should load learning material', () => {
 
 it('should load and display the learning material', async () => {
     const { getByText } = renderWithReduxRouter(<LevelPage match={matchObject} />);
-    const learningMaterial = await waitForElement(() => getByText('Learning Material'));
+    const learningMaterial = await waitForElement(() => getByText('Learning Materials'));
     expect(axiosMock.get).toHaveBeenCalledTimes(2);
     expect(learningMaterial).toBeTruthy();
 })
@@ -76,7 +76,7 @@ it('should not display a unplayable level', async () => {
             id: 1,
             title: "Adding 1 to 100",
             description: "Smol numbers.",
-            topic_id: 1,
+            topic: 1,
             playable: false
         }
     });
@@ -89,7 +89,7 @@ it('should not display a unplayable level', async () => {
 it('should not display edit or delete buttons', async () => {
     const { getByText, container } = renderWithReduxRouter(<LevelPage match={matchObject} />);
     
-    await waitForElement(() => getByText('Learning Material'));
+    await waitForElement(() => getByText('Learning Materials'));
     
     const editButton = container.querySelector('[data-icon="edit"]');
     expect(editButton).toBeFalsy();

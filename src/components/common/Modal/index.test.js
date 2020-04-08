@@ -1,7 +1,6 @@
 import React from 'react'
 import { render, cleanup, fireEvent, waitForDomChange } from '@testing-library/react'
 import Modal from './index.js';
-import 'bootstrap/dist/js/bootstrap.js';
 
 afterEach(cleanup);
 

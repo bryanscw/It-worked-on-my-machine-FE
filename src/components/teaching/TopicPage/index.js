@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash, faPlus, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 import Loader from '../../common/Loader';
 import ModalForm from '../../common/ModalForm';
-import SimpleForm from '../SimpleForm';
+import BasicForm from '../BasicForm';
 import DeleteForm from '../DeleteForm';
 import { retrieveTopic, selectTopic, selectTopicLoading, selectTopicFailed } from '../../../redux/ducks/topics';
 import { createLevel, updateLevel, deleteLevel, listLevels, selectLevelsLoading, selectLevelsFailed, selectLevels } from '../../../redux/ducks/levels';
 import { CREATE, UPDATE, DELETE, EMPTY } from '../../../utils/constants';
+import BasicCard from '../../common/BasicCard';
 
 /**
  * This component displays a topic page for a teacher. It contains a list of levels for the topic. Teachers may add, update, or delete levels.
@@ -70,7 +71,7 @@ class TopicPage extends Component {
                         title="Create a Level"
                         isVisible={isVisible}
                         onClose={this.handleModalClose}
-                        FormComponent={SimpleForm}
+                        FormComponent={BasicForm}
                         initialState={EMPTY}
                         onSubmit={level => this.props.createLevel(topic.id, level)}
                         />
@@ -82,7 +83,7 @@ class TopicPage extends Component {
                         title="Edit Level"
                         isVisible={isVisible}
                         onClose={this.handleModalClose}
-                        FormComponent={SimpleForm}
+                        FormComponent={BasicForm}
                         initialState={selectedLevel}
                         onSubmit={level => this.props.updateLevel(topic.id, {...level, id: selectedLevel.id})}
                         />
@@ -137,22 +138,18 @@ class TopicPage extends Component {
                 </div>
                 {
                     levels.length !== 0 && !levelsFailed
-                        ? levels.map((level) => (
-                            <div href="#" className="card mb-4" key={level.id}>
-                                <div className="card-body">
-                                    <h3 className="card-title"><Link to={`/topics/${topic.id}/levels/${level.id}`}>{level.title}</Link> {level.playable ?  <span className="badge badge-success">Playable</span> : <span className="badge badge-secondary">Unplayable</span>}</h3>
-                                    <p className="card-text">{level.description}</p>
-                                    <div>
-                                        <button className="ml-auto btn btn-success mr-2" onClick={() => this.openModalForm(UPDATE, level)}>
-                                            <FontAwesomeIcon icon={faEdit} />
-                                        </button>
-                                        <button className="ml-auto btn btn-danger" onClick={() => this.openModalForm(DELETE, level)}>
-                                            <FontAwesomeIcon icon={faTrash} />
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))
+                        ? levels.map(level => 
+                            <BasicCard
+                                key={level.id}
+                                editable={true}
+                                classes="mb-4"
+                                details={level}
+                                badge={level.playable ?  <span className="badge badge-success">Playable</span> : <span className="badge badge-secondary">Unplayable</span>}
+                                link={`/topics/${topic.id}/levels/${level.id}`}
+                                handleUpdate={level => this.openModalForm(UPDATE, level)}
+                                handleDelete={level => this.openModalForm(DELETE, level)}
+                                />
+                        )
                         : <p>No levels found.</p>
                 }
                 {modalFormComponent}
@@ -168,13 +165,13 @@ TopicPage.propTypes = {
     /** A boolean to determine if the topic is still being loaded by the `retrieveTopic` action creator (true: still loading, false: fully loaded) */
     topicLoading: PropTypes.bool.isRequired,
     /** A boolean to determine if the topic failed to be loaded by the `retrieveTopic` action creator (true: still loading or failed to load, false: successful load) */
-    topicFailed: PropTypes.bool.isRequired,
+    topicFailed: PropTypes.bool,
     /** A topic object loaded by the `retrieveTopic` action creator */
     topic: PropTypes.object,
     /** A boolean to determine if the levels are still being loaded by the `listLevels` action creator (true: still loading, false: fully loaded) */
     levelsLoading: PropTypes.bool.isRequired,
     /** A boolean to determine if the topics failed to be loaded by the `listLevels` action creator (true: still loading or failed to load, false: successful load) */
-    levelsFailed: PropTypes.bool.isRequired,
+    levelsFailed: PropTypes.bool,
     /** An array of topic objects loaded by the `listLevels` action creaor */
     levels: PropTypes.array.isRequired,
 

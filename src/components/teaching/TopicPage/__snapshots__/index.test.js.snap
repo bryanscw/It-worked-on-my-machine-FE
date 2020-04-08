@@ -61,7 +61,6 @@ exports[`should take a snapshot 1`] = `
     </div>
     <div
       class="card mb-4"
-      href="#"
     >
       <div
         class="card-body"
@@ -130,7 +129,6 @@ exports[`should take a snapshot 1`] = `
     </div>
     <div
       class="card mb-4"
-      href="#"
     >
       <div
         class="card-body"

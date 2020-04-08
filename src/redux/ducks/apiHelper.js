@@ -21,14 +21,14 @@ export function createApiAction(entityName, status, method, payload) {
 }
 
 // REDUCER
-export function createApiReducer(entityName) {
+export function createApiReducer(entityName, id="id") {
     const initialState = {
         isLoading: {
-            CREATE: true,
-            RETRIEVE: true,
-            UPDATE: true,
-            DELETE: true,
-            LIST: true,
+            [METHODS.CREATE]: true,
+            [METHODS.RETRIEVE]: true,
+            [METHODS.UPDATE]: true,
+            [METHODS.DELETE]: true,
+            [METHODS.LIST]: true,
         },
         hasFailed: {},
         items: [],
@@ -46,7 +46,7 @@ export function createApiReducer(entityName) {
         const actionStatus = match[2];
         const actionMethod = match[3];
 
-        if (actionEntityName !== entityName.toUpperCase())
+        if (actionEntityName !== entityName.toUpperCase() || !Object.values(METHODS).includes(actionMethod))
             return state;
 
         switch (actionStatus) {
@@ -92,7 +92,7 @@ export function createApiReducer(entityName) {
                                 ...state.isLoading,
                                 [actionMethod]: false
                             },
-                            items: state.items.map(item => (item.id === action.payload.id) ? action.payload : item),
+                            items: state.items.map(item => (item[id] === action.payload[id]) ? action.payload : item),
                             item: action.payload,
                         }
 
@@ -103,7 +103,7 @@ export function createApiReducer(entityName) {
                                 ...state.isLoading,
                                 [actionMethod]: false
                             },
-                            items: state.items.filter(item => item.id !== action.payload),
+                            items: state.items.filter(item => item[id] !== action.payload),
                         }
 
                     case METHODS.LIST:

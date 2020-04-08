@@ -16,7 +16,7 @@ beforeEach(() => {
                     title: "Adding 1 to 100",
                     description: "Smol numbers.",
                     playable: true,
-                    topic_id: 1
+                    topic: 1
                 }
             });
 
@@ -70,7 +70,7 @@ const matchObject = {
 
 it('should take a snapshot', async () => {
     const { asFragment, getByText } = renderWithReduxRouter(<LevelPage match={matchObject} />);
-    await waitForElement(() => getByText('Learning Material'));
+    await waitForElement(() => getByText('Learning Materials'));
     await waitForElement(() => getByText('Questions'));
     expect(asFragment()).toMatchSnapshot();
 })
@@ -82,7 +82,7 @@ it('should load learning material and questions', () => {
 
 it('should load and display the learning material and questions', async () => {
     const { getByText } = renderWithReduxRouter(<LevelPage match={matchObject} />);
-    const learningMaterial = await waitForElement(() => getByText('Learning Material'));
+    const learningMaterial = await waitForElement(() => getByText('Learning Materials'));
     const questions = await waitForElement(() => getByText('Questions'));
     expect(axiosMock.get).toHaveBeenCalledTimes(3);
     expect(learningMaterial).toBeTruthy();
@@ -92,7 +92,7 @@ it('should load and display the learning material and questions', async () => {
 it('should not display edit or delete buttons and should display view student reports if playable', async () => {
     const { getByText, container } = renderWithReduxRouter(<LevelPage match={matchObject} />);
     
-    await waitForElement(() => getByText('Learning Material'));
+    await waitForElement(() => getByText('Learning Materials'));
     await waitForElement(() => getByText('Questions'));
     
     const editButton = container.querySelector('[data-icon="edit"]');
@@ -114,7 +114,7 @@ it('should display edit or delete buttons if unplayable', async () => {
                     title: "Adding 1 to 100",
                     description: "Smol numbers.",
                     playable: false,
-                    topic_id: 1
+                    topic: 1
                 }
             });
 
@@ -155,7 +155,7 @@ it('should display edit or delete buttons if unplayable', async () => {
     
     const { getByText, container, queryByText } = renderWithReduxRouter(<LevelPage match={matchObject} />);
     
-    await waitForElement(() => getByText('Learning Material'));
+    await waitForElement(() => getByText('Learning Materials'));
     await waitForElement(() => getByText('Questions'));
     
     const editButton = await waitForElement(() => container.querySelector('[data-icon="edit"]'));

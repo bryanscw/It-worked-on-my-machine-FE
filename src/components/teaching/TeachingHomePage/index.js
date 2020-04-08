@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 
 import Loader from '../../common/Loader';
 import ModalForm from '../../common/ModalForm';
-import SimpleForm from '../SimpleForm';
+import BasicForm from '../BasicForm';
 import DeleteForm from '../DeleteForm';
 import { createTopic, updateTopic, deleteTopic, listTopics, selectTopicsLoading, selectTopics, selectTopicFailed } from '../../../redux/ducks/topics';
 import { CREATE, UPDATE, DELETE, EMPTY } from '../../../utils/constants';
+import { selectUser } from '../../../redux/ducks/auth';
+import BasicCard from '../../common/BasicCard';
 
 /**
  * This component displays the homepage for a teacher. It contains a welcome greeting and list of topics.
@@ -63,7 +64,7 @@ class TeachingHomePage extends Component {
                         title="Create a Topic"
                         isVisible={isVisible}
                         onClose={this.handleModalClose}
-                        FormComponent={SimpleForm}
+                        FormComponent={BasicForm}
                         initialState={EMPTY}
                         onSubmit={this.props.createTopic}
                         />
@@ -75,7 +76,7 @@ class TeachingHomePage extends Component {
                         title="Edit Topic"
                         isVisible={isVisible}
                         onClose={this.handleModalClose}
-                        FormComponent={SimpleForm}
+                        FormComponent={BasicForm}
                         initialState={selectedTopic}
                         onSubmit={topic => this.props.updateTopic({...topic, id: selectedTopic.id})}
                         />
@@ -121,23 +122,16 @@ class TeachingHomePage extends Component {
                 </div>
                 {
                     topics.length !== 0 && !topicsFailed
-                        ? topics.map((topic) => (
-                            <div href="#" className="card mb-4" key={topic.id}>
-                                <div className="card-body">
-                                    <Link to={`/topics/${topic.id}`}>
-                                        <h3 className="card-title">{topic.title}</h3>
-                                    </Link>
-                                    <p className="card-text">{topic.description}</p>
-                                    <div>
-                                        <button className="ml-auto btn btn-success mr-2" onClick={() => this.openModalForm(UPDATE, topic)}>
-                                            <FontAwesomeIcon icon={faEdit} />
-                                        </button>
-                                        <button className="ml-auto btn btn-danger" onClick={() => this.openModalForm(DELETE, topic)}>
-                                            <FontAwesomeIcon icon={faTrash} />
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                        ? topics.map(topic => (
+                            <BasicCard
+                                key={topic.id}
+                                editable={true}
+                                classes="mb-4"
+                                details={topic}
+                                link={`/topics/${topic.id}`}
+                                handleUpdate={topic => this.openModalForm(UPDATE, topic)}
+                                handleDelete={topic => this.openModalForm(DELETE, topic)}
+                                />
                         ))
                         : <p>No topics found.</p>
                 }
@@ -154,7 +148,7 @@ TeachingHomePage.propTypes = {
     /** A boolean to determine if the topics are still being loaded by the `listTopics` action creator (true: still loading, false: fully loaded) */
     topicsLoading: PropTypes.bool.isRequired,
     /** A boolean to determine if the topics failed to be loaded by the `listTopics` action creator (true: still loading or failed to load, false: successful load) */
-    topicsFailed: PropTypes.bool.isRequired,
+    topicsFailed: PropTypes.bool,
     /** An array of topic objects loaded by the `listTopics` action creaor */
     topics: PropTypes.array.isRequired,
 
@@ -168,8 +162,8 @@ TeachingHomePage.propTypes = {
     listTopics: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-    user: state.authReducer.user,
+const mapStateToProps = state => ({
+    user: selectUser(state),
     topicsLoading: selectTopicsLoading(state),
     topicsFailed: selectTopicFailed(state),
     topics: selectTopics(state),

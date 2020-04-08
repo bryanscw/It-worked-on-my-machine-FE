@@ -1,14 +1,14 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import AdminTable from '../AdminTable';
+import AdminPage from '../AdminPage';
 
 const AccountsRouter = [
     <Route
-        key="AdminTable"
+        key="AdminPage"
         path= "/"
         exact
-        component={AdminTable}
+        component={AdminPage}
         />,
 ];
 

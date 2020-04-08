@@ -109,4 +109,4 @@ export const listLearningMaterials = (levelId) => (dispatch, getState) => {
 // SELECTORS
 export const selectLearningMaterialsLoading = state => state.learningMaterialsReducer.isLoading[METHODS.LIST] === true;
 export const selectLearningMaterialsFailed = state => state.learningMaterialsReducer.isLoading[METHODS.LIST] === false && state.learningMaterialsReducer.hasFailed[METHODS.LIST] === true;
-export const selectLearningMaterial = state => state.learningMaterialsReducer.items.find(item => true);
+export const selectLearningMaterials = state => state.learningMaterialsReducer.items;

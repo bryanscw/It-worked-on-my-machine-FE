@@ -26,19 +26,51 @@ exports[`should take a snapshot 1`] = `
       Create a Question
     </button>
   </div>
-  <ul
-    class="list-group"
+  <div
+    class="card-columns"
   >
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
+    <div
+      class="card"
     >
-      <span>
+      <h3
+        class="card-header"
+      >
         1 + 1
-      </span>
-      <div>
+      </h3>
+      <ul
+        class="list-group list-group-flush"
+      >
+        <li
+          class="list-group-item"
+        >
+          1 
+        </li>
+        <li
+          class="list-group-item"
+        >
+          2 
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-check fa-w-16 text-success"
+            data-icon="check"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            viewBox="0 0 512 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+              fill="currentColor"
+            />
+          </svg>
+        </li>
+      </ul>
+      <div
+        class="card-body"
+      >
         <button
           class="btn btn-success mr-2"
-          href="#"
         >
           <svg
             aria-hidden="true"
@@ -58,7 +90,6 @@ exports[`should take a snapshot 1`] = `
         </button>
         <button
           class="btn btn-danger"
-          href="#"
         >
           <svg
             aria-hidden="true"
@@ -77,17 +108,54 @@ exports[`should take a snapshot 1`] = `
           </svg>
         </button>
       </div>
-    </li>
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
+    </div>
+    <div
+      class="card"
     >
-      <span>
+      <h3
+        class="card-header"
+      >
         1 + 2
-      </span>
-      <div>
+      </h3>
+      <ul
+        class="list-group list-group-flush"
+      >
+        <li
+          class="list-group-item"
+        >
+          1 
+        </li>
+        <li
+          class="list-group-item"
+        >
+          2 
+        </li>
+        <li
+          class="list-group-item"
+        >
+          3 
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-check fa-w-16 text-success"
+            data-icon="check"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            viewBox="0 0 512 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+              fill="currentColor"
+            />
+          </svg>
+        </li>
+      </ul>
+      <div
+        class="card-body"
+      >
         <button
           class="btn btn-success mr-2"
-          href="#"
         >
           <svg
             aria-hidden="true"
@@ -107,7 +175,6 @@ exports[`should take a snapshot 1`] = `
         </button>
         <button
           class="btn btn-danger"
-          href="#"
         >
           <svg
             aria-hidden="true"
@@ -126,7 +193,7 @@ exports[`should take a snapshot 1`] = `
           </svg>
         </button>
       </div>
-    </li>
-  </ul>
+    </div>
+  </div>
 </DocumentFragment>
 `;

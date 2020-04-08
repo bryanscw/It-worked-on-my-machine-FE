@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
+import { selectUser } from '../../../redux/ducks/auth';
 /**
  * This component displays the header of the web application.
  */
@@ -42,8 +43,8 @@ export class Header extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    user: state.authReducer.user
+const mapStateToProps = state => ({
+    user: selectUser(state),
 });
 
 export default connect(mapStateToProps)(Header);

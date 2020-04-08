@@ -49,7 +49,6 @@ export const displayError = errorMessage => dispatch => {
     // Dismiss error alert after 3 seconds
     setTimeout(() => {
         dispatch(closeErrorAction());
-        console.log("close");
     }, 3000);
 };
 

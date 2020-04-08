@@ -15,5 +15,15 @@ export const DELETE = 'DELETE';
 export const EMPTY = 'EMPTY';
 
 export const SPRITE_SIZE = 40;
-export const MAP_HEIGHT = SPRITE_SIZE * 16;
-export const MAP_WIDTH = SPRITE_SIZE * 30;
+export const MAP_HEIGHT = 15;
+export const MAP_WIDTH = 29;
+
+// export const MAP_HEIGHT = SPRITE_SIZE * 15;
+// export const MAP_WIDTH = SPRITE_SIZE * 29;
+
+export const TILE_MAPPING = {
+    grass: 0,
+    house: 4,
+    rock: 5,
+    tree: 6,
+};

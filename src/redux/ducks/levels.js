@@ -4,7 +4,7 @@ import { createApiReducer, createApiAction, STATUSES, METHODS } from './apiHelpe
 import { API_URL } from '../../utils/constants';
 import { displayError } from './errors';
 import { getTokenConfig } from './authHelper';
-import generateMaze from '../../utils/generateMaze';
+import { generateMaze } from '../../utils/maze';
 import { updateQuestion } from './questions';
 
 const ENTITY_NAME = 'gameMaps';
@@ -92,7 +92,7 @@ export const publishLevel = (topicId, levelId) => (dispatch, getState) => {
             
             for (let i = 0; i < questions.length; i++) {
                 updateQuestion(levelId, {
-                    ...questions[i],
+                    id: questions[i].id,
                     coordinates: {
                         x: questionCoordinates[i][0],
                         y: questionCoordinates[i][1],

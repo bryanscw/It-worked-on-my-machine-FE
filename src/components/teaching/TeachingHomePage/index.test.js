@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, cleanup, waitForElement } from '@testing-library/react'
+import { cleanup, waitForElement } from '@testing-library/react'
 import axiosMock from 'axios'
 
 import { renderWithReduxRouter } from '../../../utils/tests.js';

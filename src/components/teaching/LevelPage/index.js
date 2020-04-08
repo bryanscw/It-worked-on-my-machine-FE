@@ -6,12 +6,12 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types'
 
 import Loader from '../../common/Loader';
-import LearningMaterial from '../LearningMaterial';
+import LearningMaterialList from '../LearningMaterialList';
 import QuestionsList from '../QuestionsList';
 import { retrieveLevel, publishLevel, selectLevel, selectLevelLoading, selectLevelFailed } from '../../../redux/ducks/levels';
 
 /**
- * This component displays the level page for a teacher. It contains the QuestionsList and LearningMaterial components.
+ * This component displays the level page for a teacher. It contains the QuestionsList and LearningMaterialList components.
  */
 export class LevelPage extends Component {
     componentDidMount() {
@@ -41,7 +41,7 @@ export class LevelPage extends Component {
         
         return (
             <div className="container">
-                <Link className="btn btn-light mb-2" to={`/topics/${level.topic_id}/`}>
+                <Link className="btn btn-light mb-2" to={`/topics/${level.topic}/`}>
                     <FontAwesomeIcon icon={faChevronLeft}/> Back to Topic Page
                 </Link>
                 <h1>{level.title} {level.playable ?  <span className="badge badge-success">Playable</span> : <span className="badge badge-secondary">Unplayable</span>}</h1>
@@ -49,7 +49,7 @@ export class LevelPage extends Component {
                 <div className="mb-4">
                     {
                         level.playable
-                            ? <Link className="btn btn-primary" to={`/topics/${level.topic_id}/levels/${level.id}/student-reports`}>
+                            ? <Link className="btn btn-primary" to={`/topics/${level.topic}/levels/${level.id}/student-reports`}>
                                 View Student Reports
                             </Link>
                             : <button className="btn btn-primary" onClick={this.onPublish}>
@@ -57,11 +57,11 @@ export class LevelPage extends Component {
                             </button>
                     }
                 </div>
-                <h2>Learning Material</h2>
-                <LearningMaterial levelId={level.id} playable={level.playable} />
+                <h2>Learning Materials</h2>
+                <LearningMaterialList levelId={level.id} editable={!level.playable} />
                 <br />
                 <h2>Questions</h2>
-                <QuestionsList levelId={level.id} playable={level.playable} />
+                <QuestionsList levelId={level.id} editable={!level.playable} />
             </div>
         );
     }
@@ -74,7 +74,7 @@ LevelPage.propTypes = {
     /** A boolean to determine if the level is still being loaded by the `retrieveLevel` action creator (true: still loading, false: fully loaded) */
     levelLoading: PropTypes.bool.isRequired,
     /** A boolean to determine if the level failed to be loaded by the `retrieveLevel` action creator (true: still loading or failed to load, false: successful load) */
-    levelFailed: PropTypes.bool.isRequired,
+    levelFailed: PropTypes.bool,
     /** A level object loaded by the `retrieveLevel` action creator */
     level: PropTypes.object,
 
