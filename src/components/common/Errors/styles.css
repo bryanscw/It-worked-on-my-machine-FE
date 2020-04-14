@@ -1,0 +1,17 @@
+.error-wrapper {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 350px;
+    z-index: 100;
+}
+
+.error-shown.toast {
+    opacity: 1;
+    transition: all 250ms linear;
+}
+
+.error-hidden.toast {
+    display: none;
+    transition: all 250ms linear;
+}

@@ -1,9 +1,0 @@
-.alert-shown {
-    opacity: 1;
-    transition: all 250ms linear;
-}
-
-.alert-hidden {
-    display: none;
-    transition: all 250ms linear;
-}

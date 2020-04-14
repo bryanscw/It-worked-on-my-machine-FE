@@ -11,7 +11,7 @@ exports[`should take a snapshot 1`] = `
       <img
         alt="Mazematic Icon"
         class="LoginPage-icon-8"
-        src="icon.png"
+        src="mazematicsIcon.png"
       />
       <div
         class="LoginPage-paper-4"

@@ -5,7 +5,7 @@ import DeleteForm from './index.js';
 afterEach(cleanup);
 
 it('should take a snapshot', () => {
-    const { asFragment } = render(<DeleteForm />);
+    const { asFragment } = render(<DeleteForm onSubmit={() => {}} />);
     expect(asFragment()).toMatchSnapshot();
 });
 

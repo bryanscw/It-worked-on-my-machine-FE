@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, cleanup, waitForElement } from '@testing-library/react'
+import { cleanup, waitForElement } from '@testing-library/react'
 import axiosMock from 'axios'
 
 import { renderWithReduxRouter } from '../../../utils/tests.js';
@@ -8,7 +8,7 @@ import LevelPage from './index.js';
 jest.mock('axios');
 
 beforeEach(() => {
-    axiosMock.get.mockImplementation((url) => {
+    axiosMock.get.mockImplementation(url => {
         if (/topics/.test(url)) {
             return Promise.resolve({
                 data: {

@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should take a snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="card"
+  >
+    <div
+      class="card-body"
+    >
+      <h3
+        class="card-title"
+      >
+        <a
+          href="/"
+        >
+          Basic Addition
+        </a>
+         
+      </h3>
+      <p
+        class="card-text"
+      >
+        This is an interesting video
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;

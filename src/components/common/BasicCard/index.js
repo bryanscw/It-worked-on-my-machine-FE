@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -39,4 +41,14 @@ export default function BasicCard(props) {
             </div>
         </div>
     )
+}
+
+BasicCard.propTypes = {
+    classes: PropTypes.string,
+    editable: PropTypes.bool.isRequired,
+    details: PropTypes.object.isRequired,
+    badge: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.element]),
+    link: PropTypes.string.isRequired,
+    handleUpdate: PropTypes.func,
+    handleDelete: PropTypes.func,
 }

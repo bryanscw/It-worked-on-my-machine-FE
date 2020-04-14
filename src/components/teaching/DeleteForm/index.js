@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export default function DeleteForm(props) {
     const {
@@ -11,4 +12,8 @@ export default function DeleteForm(props) {
             <button className="btn btn-secondary" onClick={() => onSubmit(false)}>Cancel</button>
         </>
     )
+}
+
+DeleteForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
 }

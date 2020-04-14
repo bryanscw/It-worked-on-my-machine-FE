@@ -28,7 +28,7 @@ function shuffle(array) {
 
 // Generates a maze of size 29 by 15
 export function generateMaze(numQuestions) {
-    let originalMaze = generator((MAP_WIDTH + 1) / 2, (MAP_HEIGHT + 1) / 2);
+    let originalMaze = generator((MAP_WIDTH - 1) / 2, (MAP_HEIGHT - 1) / 2);
     let mazeWithWalls = [];
 
     for (let i = 0; i < originalMaze.length; i++) {
@@ -56,13 +56,24 @@ export function generateMaze(numQuestions) {
     
     mazeWithWalls.pop();
 
+    // Add goal
     let lastRow = mazeWithWalls[mazeWithWalls.length - 1];
     mazeWithWalls[mazeWithWalls.length - 1][lastRow.length - 1] = GOAL;
 
+    // Add surrounding walls
+    let mazeWithSurroundings = mazeWithWalls.map(row => [WALL, ...row, WALL]);
+
+    let wallRow = [];
+    for (let i = 0; i < MAP_WIDTH; i++)
+        wallRow.push(WALL);
+
+    mazeWithSurroundings = [wallRow, ...mazeWithSurroundings, wallRow];
+
+    // Find free coordinates
     let freeCoordinates = [];
 
-    for (let i = 0; i < mazeWithWalls.length; i++) {
-        let row = mazeWithWalls[i];
+    for (let i = 0; i < mazeWithSurroundings.length; i++) {
+        let row = mazeWithSurroundings[i];
 
         for (let j = 0; j < row.length; j++) {
             if (row[j] === EMPTY && !(i === 0 && j === 0))
@@ -70,9 +81,11 @@ export function generateMaze(numQuestions) {
         }
     }
 
+    // Find question coordinats
     freeCoordinates = shuffle(freeCoordinates);
     const questionCoordinates = freeCoordinates.splice(0, numQuestions);
-    let mapDescriptor = JSON.stringify(mazeWithWalls);
+
+    let mapDescriptor = JSON.stringify(mazeWithSurroundings);
 
     return {
         mapDescriptor,
@@ -81,18 +94,18 @@ export function generateMaze(numQuestions) {
 }
 
 export function generateTiles(mapDescriptor, questions) {
-    let mazeWithWalls = JSON.parse(mapDescriptor);
+    let maze = JSON.parse(mapDescriptor);
     for (let i = 0; i < questions.length; i++) {
         const {
             x,
             y,
         } = questions[i].coordinates;
-        mazeWithWalls[y][x] = QUESTION;
+        maze[y][x] = QUESTION;
     }
 
     let tiles = [];
-    for (let i = 0; i < mazeWithWalls.length; i++) {
-        let row = mazeWithWalls[i];
+    for (let i = 0; i < maze.length; i++) {
+        let row = maze[i];
         let tileRow = [];
 
         for (let j = 0; j < row.length; j++) {

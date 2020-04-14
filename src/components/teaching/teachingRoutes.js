@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import TeachingHomePage from '../TeachingHomePage';
-import TopicPage from '../TopicPage';
-import LevelPage from '../LevelPage';
-import StudentReportsPage from '../StudentReportsPage';
+import TeachingHomePage from './TeachingHomePage';
+import TopicPage from './TopicPage';
+import LevelPage from './LevelPage';
+import StudentReportsPage from './StudentReportsPage';
 
 const TeachingRouter = [
     <Route

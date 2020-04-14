@@ -4,8 +4,7 @@ const ERROR_CLOSE = 'ERROR_CLOSE';
 
 // REDUCER
 const initialState = {
-    isVisible: false,
-    errorMessage: '',
+    errors: [],
 };
 
 export default function(state = initialState, action) {
@@ -13,14 +12,21 @@ export default function(state = initialState, action) {
         case ERROR_DISPLAY:
             return {
                 ...state,
-                isVisible: true,
-                errorMessage: action.payload,
+                errors: [...state.errors, action.payload],
             }
 
         case ERROR_CLOSE:
             return {
                 ...state,
-                isVisible: false,
+                errors: state.errors.map(error => {
+                    if (error.id === action.payload)
+                        return {
+                            ...error,
+                            isVisible: false,
+                        };
+                    else
+                        return error;
+                }),
             }
 
         default:
@@ -29,31 +35,38 @@ export default function(state = initialState, action) {
 };
 
 // ACTION CREATORS
-export function displayErrorAction(errorMessage) {
+function displayErrorAction(error) {
+    // Generate unique ID
     return {
         type: ERROR_DISPLAY,
-        payload: errorMessage
+        payload: error,
     }
 }
 
-export function closeErrorAction() {
+function closeErrorAction(id) {
     return {
         type: ERROR_CLOSE,
+        payload: id,
     }
 }
 
 // OPERATIONS
 export const displayError = errorMessage => dispatch => {
-    dispatch(displayErrorAction(errorMessage));
+    const uid = Date.now().toString(36) + Math.random().toString(36).substr(2);
+
+    dispatch(displayErrorAction({
+        id: uid,
+        message: errorMessage,
+        isVisible: true,
+    }));
 
     // Dismiss error alert after 3 seconds
     setTimeout(() => {
-        dispatch(closeErrorAction());
+        dispatch(closeErrorAction(uid));
     }, 3000);
 };
 
-export const closeError = () => dispatch => dispatch(closeErrorAction());
+export const closeError = id => dispatch => dispatch(closeErrorAction(id));
 
 // SELECTORS
-export const selectIsVisible = state => state.errorsReducer.isVisible;
-export const selectErrorMessage = state => state.errorsReducer.errorMessage;
+export const selectErrors = state => state.errorsReducer.errors;

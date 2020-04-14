@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import AdminPage from '../AdminPage';
+import AdminPage from './AdminPage';
 
 const AccountsRouter = [
     <Route

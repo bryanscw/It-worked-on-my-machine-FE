@@ -8,7 +8,7 @@ import Loader from '../../common/Loader';
 import ModalForm from '../../common/ModalForm';
 import QuestionForm from '../QuestionForm';
 import DeleteForm from '../DeleteForm';
-import { createQuestion, listQuestions, updateQuestion, deleteQuestion, selectQuestions, selectQuestionsFailed, selectQuestionsLoading } from '../../../redux/ducks/questions';
+import { createQuestion, listQuestions, updateQuestion, deleteQuestion, selectQuestionsParsed, selectQuestionsFailed, selectQuestionsLoading } from '../../../redux/ducks/questions';
 import { CREATE, UPDATE, DELETE, EMPTY } from '../../../utils/constants';
 import Question from '../Question';
 
@@ -173,7 +173,7 @@ QuestionsList.propTypes = {
 const mapStateToProps = state => ({
     questionsLoading: selectQuestionsLoading(state),
     questionsFailed: selectQuestionsFailed(state),
-    questions: selectQuestions(state)
+    questions: selectQuestionsParsed(state)
 });
 
 const dispatchers = {

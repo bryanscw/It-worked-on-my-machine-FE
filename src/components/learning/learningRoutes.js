@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import LearningHomePage from '../LearningHomePage';
-import TopicPage from '../TopicPage';
-import LevelPage from '../LevelPage';
-import LeaderboardPage from '../LeaderboardPage';
-import GamePage from '../../game/GamePage';
+import LearningHomePage from './LearningHomePage';
+import TopicPage from './TopicPage';
+import LevelPage from './LevelPage';
+import LeaderboardPage from './LeaderboardPage';
+import GamePage from '../game/GamePage';
 
 const LearningRouter = [
     // To test out a specific game level, comment everything else out & uncomment this

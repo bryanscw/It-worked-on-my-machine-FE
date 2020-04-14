@@ -5,6 +5,6 @@ import QuestionForm from './index.js';
 afterEach(cleanup);
 
 it('should take a snapshot', () => {
-    const { asFragment } = render(<QuestionForm />);
+    const { asFragment } = render(<QuestionForm onSubmit={() => {}} />);
     expect(asFragment()).toMatchSnapshot();
 });

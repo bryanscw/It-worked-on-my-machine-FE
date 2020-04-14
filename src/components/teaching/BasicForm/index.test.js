@@ -5,9 +5,9 @@ import BasicForm from './index.js';
 afterEach(cleanup);
 
 it('should take a snapshot', () => {
-    const { asFragment } = render(<BasicForm />);
+    const { asFragment } = render(<BasicForm onSubmit={() => {}} />);
     expect(asFragment()).toMatchSnapshot();
-})
+});
 
 it('should return form data', () => {
     const expectedResult = {

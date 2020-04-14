@@ -1,0 +1,71 @@
+{
+    "data": {
+        "content": [
+            {
+                "id": 1,
+                "createdBy": "teacher1@test.com",
+                "createdDate": "2020-04-02T06:48:04.387+0000",
+                "lastModifiedBy": "teacher1@test.com",
+                "lastModifiedDate": "2020-04-02T06:48:18.771+0000",
+                "gameMap": 1,
+                "questionText": "4 - 1",
+                "answer": null,
+                "options": {
+                    "0": "1",
+                    "1": "2",
+                    "2": "3",
+                    "3": "4"
+                },
+                "coordinates": {
+                    "x": 28,
+                    "y": 0
+                }
+            },
+            {
+                "id": 2,
+                "createdBy": "teacher1@test.com",
+                "createdDate": "2020-04-02T06:48:14.247+0000",
+                "lastModifiedBy": "teacher1@test.com",
+                "lastModifiedDate": "2020-04-02T06:48:18.775+0000",
+                "gameMap": 1,
+                "questionText": "3 - 2",
+                "answer": null,
+                "options": {
+                    "0": "1",
+                    "1": "2",
+                    "2": "3",
+                    "3": "4"
+                },
+                "coordinates": {
+                    "x": 22,
+                    "y": 13
+                }
+            }
+        ],
+        "pageable": {
+            "sort": {
+                "sorted": false,
+                "unsorted": true,
+                "empty": true
+            },
+            "pageNumber": 0,
+            "pageSize": 20,
+            "offset": 0,
+            "paged": true,
+            "unpaged": false
+        },
+        "totalPages": 1,
+        "totalElements": 2,
+        "last": true,
+        "first": true,
+        "sort": {
+            "sorted": false,
+            "unsorted": true,
+            "empty": true
+        },
+        "size": 20,
+        "number": 0,
+        "numberOfElements": 2,
+        "empty": false
+    }
+}

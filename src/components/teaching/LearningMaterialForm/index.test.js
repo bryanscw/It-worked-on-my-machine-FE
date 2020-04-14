@@ -5,7 +5,7 @@ import LearningMaterialForm from './index.js';
 afterEach(cleanup);
 
 it('should take a snapshot', () => {
-    const { asFragment } = render(<LearningMaterialForm />);
+    const { asFragment } = render(<LearningMaterialForm onSubmit={() => {}} />);
     expect(asFragment()).toMatchSnapshot();
 });
 

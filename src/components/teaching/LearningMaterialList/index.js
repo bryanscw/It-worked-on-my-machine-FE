@@ -150,6 +150,7 @@ export class LearningMaterialList extends Component {
         )
     }
 }
+
 LearningMaterialList.propTypes = {
     /** A string containing the level ID of the level*/
     levelId: PropTypes.number.isRequired,

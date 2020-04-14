@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -6,12 +7,12 @@ import { USER_ROLES } from '../../../utils/constants';
 import { refreshTokenLogin, selectUserLoading, selectUserFailed, selectUser, selectRefreshToken } from '../../../redux/ducks/auth';
 
 import Header from '../Header';
-import Alert from '../Alert';
+import Errors from '../Errors';
 import Footer from '../Footer';
 import LoginPage from '../../accounts/LoginPage';
-import TeachingRouter from '../../teaching/TeachingRouter';
-import AccountsRouter from '../../accounts/AccountsRouter';
-import LearningRouter from '../../learning/LearningRouter';
+import teachingRoutes from '../../teaching/teachingRoutes';
+import learningRoutes from '../../learning/learningRoutes';
+import accountsRoutes from '../../accounts/accountsRoutes';
 import LogoutPage from '../../accounts/LogoutPage';
 import NotFoundPage from '../NotFoundPage';
 import Loader from '../Loader';
@@ -26,7 +27,7 @@ class AppRouter extends Component {
         if (refresh_token)
             refreshTokenLogin(refresh_token);
     }
-
+    
     render() {
         const {
             userLoading,
@@ -64,15 +65,15 @@ class AppRouter extends Component {
 
             switch (user.role) {
                 case USER_ROLES.STUDENT:
-                    routes = routes.concat(LearningRouter);
+                    routes = routes.concat(learningRoutes);
                     break;
 
                 case USER_ROLES.TEACHER:
-                    routes = routes.concat(TeachingRouter);
+                    routes = routes.concat(teachingRoutes);
                     break;
 
                 case USER_ROLES.ADMIN:
-                    routes = routes.concat(AccountsRouter);
+                    routes = routes.concat(accountsRoutes);
                     break;
 
                 default:
@@ -82,7 +83,7 @@ class AppRouter extends Component {
 
         return (
             <BrowserRouter>
-                <Alert />
+                <Errors />
                 <Header />
                 <Switch>
                     <Route
@@ -105,6 +106,16 @@ class AppRouter extends Component {
             </BrowserRouter>
         );
     }
+}
+
+AppRouter.propTypes = {
+    refresh_token: PropTypes.string,
+    
+    userLoading: PropTypes.bool.isRequired,
+    userFailed: PropTypes.bool,
+    user: PropTypes.object,
+
+    refreshTokenLogin: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({

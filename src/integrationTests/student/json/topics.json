@@ -1,0 +1,57 @@
+{
+    "data": {
+        "content": [
+            {
+                "id": 1,
+                "createdBy": "teacher1@test.com",
+                "createdDate": "2020-04-02T04:17:52.692+0000",
+                "lastModifiedBy": "teacher1@test.com",
+                "lastModifiedDate": "2020-04-02T04:17:52.692+0000",
+                "title": "Addition",
+                "description": "Adding one thing to another",
+                "gameMaps": [
+                    1,
+                    2
+                ]
+            },
+            {
+                "id": 2,
+                "createdBy": "teacher1@test.com",
+                "createdDate": "2020-04-02T05:31:43.734+0000",
+                "lastModifiedBy": "teacher1@test.com",
+                "lastModifiedDate": "2020-04-02T09:46:30.933+0000",
+                "title": "Subtraction",
+                "description": "Removing something from another",
+                "gameMaps": [
+                    3,
+                    4
+                ]
+            }
+        ],
+        "pageable": {
+            "sort": {
+                "sorted": false,
+                "unsorted": true,
+                "empty": true
+            },
+            "pageNumber": 0,
+            "pageSize": 20,
+            "offset": 0,
+            "paged": true,
+            "unpaged": false
+        },
+        "totalPages": 1,
+        "totalElements": 2,
+        "last": true,
+        "first": true,
+        "sort": {
+            "sorted": false,
+            "unsorted": true,
+            "empty": true
+        },
+        "size": 20,
+        "number": 0,
+        "numberOfElements": 2,
+        "empty": false
+    }
+}

@@ -148,4 +148,5 @@ export const listQuestions = (levelId) => (dispatch, getState) => {
 // SELECTORS
 export const selectQuestionsLoading = state => state.questionsReducer.isLoading[METHODS.LIST] === true;
 export const selectQuestionsFailed = state => state.questionsReducer.isLoading[METHODS.LIST] === false && state.questionsReducer.hasFailed[METHODS.LIST] === true;
-export const selectQuestions = state => state.questionsReducer.items.map(question => questionReader(question));
+export const selectQuestionsParsed = state => state.questionsReducer.items.map(question => questionReader(question));
+export const selectQuestions = state => state.questionsReducer.items;

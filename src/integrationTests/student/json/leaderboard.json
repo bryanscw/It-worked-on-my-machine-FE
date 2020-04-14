@@ -1,0 +1,16 @@
+{
+    "data": [
+        {
+            "name": "Bob",
+            "timing": 1.2
+        },
+        {
+            "name": "Joe",
+            "timing": 1.5
+        },
+        {
+            "name": "Kelly",
+            "timing": 2.0
+        }
+    ]
+}

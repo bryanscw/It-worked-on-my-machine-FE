@@ -1,0 +1,15 @@
+{
+    "data": {
+        "id": 1,
+        "createdBy": "teacher1@test.com",
+        "createdDate": "2020-04-02T04:17:52.692+0000",
+        "lastModifiedBy": "teacher1@test.com",
+        "lastModifiedDate": "2020-04-02T04:17:52.692+0000",
+        "title": "Addition",
+        "description": "Adding one thing to another",
+        "gameMaps": [
+            1,
+            2
+        ]
+    }
+}

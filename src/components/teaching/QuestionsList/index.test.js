@@ -3,7 +3,7 @@ import { cleanup, waitForElement } from '@testing-library/react'
 import axiosMock from 'axios'
 
 import QuestionForm from './index.js';
-import { renderWithReduxRouter } from '../../../utils/tests.js';
+import { renderWithRedux } from '../../../utils/tests.js';
 
 jest.mock('axios');
 
@@ -38,7 +38,7 @@ beforeEach(() => {
 afterEach(cleanup);
 
 it('should take a snapshot', async () => {
-    const { asFragment, getByText } = renderWithReduxRouter(<QuestionForm levelId={1} editable={true} />);
+    const { asFragment, getByText } = renderWithRedux(<QuestionForm levelId={1} editable={true} />);
     await waitForElement(() => getByText('1 + 1'));
     expect(asFragment()).toMatchSnapshot();
 })

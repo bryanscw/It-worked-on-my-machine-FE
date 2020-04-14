@@ -4,8 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { authenticateLogin } from '../../../redux/ducks/auth';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import icon from '../../../images/icon.png';
-import PokemonIcon from '../../../images/pokemonIcon.png';
+import MazematicsIcon from './mazematicsIcon.png';
+import PokemonIcon from './pokemonIcon.png';
 
 const styles = theme => ({
     main: {
@@ -103,7 +103,7 @@ class LoginPage extends Component {
             <div className={classes.main}>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
-                    <img src={icon} className={classes.icon} alt="Mazematic Icon" />
+                    <img src={MazematicsIcon} className={classes.icon} alt="Mazematic Icon" />
                     <div className={classes.paper}>
                         <img src={PokemonIcon} className={classes.avatar} alt="Pokemon Icon" />
                         <form className={classes.form} noValidate onSubmit={this.handleSubmit}>

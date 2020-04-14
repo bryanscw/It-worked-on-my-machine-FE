@@ -1,7 +1,7 @@
 # It-Worked-on-my-machine Frontend
 - This is the frontend ReactJS web app of Mazematics
 
-### How to View
+## How to View
 - Web App: http://172.21.148.167/
 - Docs: http://172.21.148.167/docs
 
@@ -18,6 +18,11 @@
     - `index.js`: Source file for React component
     - `index.test.js`: Unit testing file for React component
 
+### Testing
+- Unit tests can be found in the `index.test.js` files of each component's component folder
+- Integration tests can be found in the `index.test.js` files in the `src/integrationTests` folder
+    - There's one integration test for each user type (admin, student, teacher)
+
 ## Development
 ### Prerequisite
 1. Install [Node.js](https://nodejs.org/en/)
@@ -26,10 +31,10 @@
 ### How to Run Development Server
 1. `npm start`
 
-#### How to Run Docs Server
+### How to Run Docs Server
 1. `npm run docs-dev`
 
-#### How to Run Tests
+### How to Run Tests (Unit & Integration Tests)
 1. `npm test`
 
 ## Production

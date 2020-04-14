@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import { EMPTY } from '../../../utils/constants';
 
 export class QuestionForm extends Component {
@@ -68,19 +70,23 @@ export class QuestionForm extends Component {
             <form className="form" onSubmit={this.onSubmit}>
                 <p><strong>Options</strong></p>
                 {
-                    options.map((option, i) => 
-                        <div className="form-check" key={i}>
-                            <input
-                                className="form-check-input"
-                                id={`option-${i}`}
-                                type="radio"
-                                name="radio"
-                                onChange={e => this.onChangeAnswer(e.target.checked ? i : null)}
-                                checked={answer === parseInt(i)}
-                                />
-                            <label className="form-check-label" htmlFor={`option-${i}`}>{option}</label>
-                        </div>
-                    )
+                    Object.keys(options).map(key => {
+                        let option = options[key];
+                        
+                        return (
+                            <div className="form-check" key={key}>
+                                <input
+                                    className="form-check-input"
+                                    id={`option-${key}`}
+                                    type="radio"
+                                    name="radio"
+                                    onChange={e => this.onChangeAnswer(e.target.checked ? key : null)}
+                                    checked={answer === key}
+                                    />
+                                <label className="form-check-label" htmlFor={`option-${key}`}>{option}</label>
+                            </div>
+                        )
+                    })
                 }
                 <div className="form-group mt-4">
                     <button className="btn btn-primary" type="submit">Submit</button>
@@ -88,6 +94,13 @@ export class QuestionForm extends Component {
             </form>
         )
     }
+}
+
+QuestionForm.propTypes = {
+    /** The initial state of the form. If it's 'EMPTY', then the form will be empty. If it's an object, the form will display the form with initial state's content. */
+    initialState: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    /** The function to call when the form is submitted */
+    onSubmit: PropTypes.func.isRequired,
 }
 
 export default QuestionForm

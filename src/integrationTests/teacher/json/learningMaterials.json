@@ -1,0 +1,53 @@
+{
+    "data": {
+        "content": [
+            {
+                "id": 1,
+                "createdBy": "teacher1@test.com",
+                "createdDate": "2020-04-02T07:22:47.528+0000",
+                "lastModifiedBy": "teacher1@test.com",
+                "lastModifiedDate": "2020-04-02T07:22:47.528+0000",
+                "gameMap": 11,
+                "title": "Test",
+                "link": "https://www.youtube.com/embed/AQ7THUKx6Es",
+                "description": "123"
+            },
+            {
+                "id": 2,
+                "createdBy": "teacher1@test.com",
+                "createdDate": "2020-04-05T10:09:43.915+0000",
+                "lastModifiedBy": "teacher1@test.com",
+                "lastModifiedDate": "2020-04-05T10:09:43.915+0000",
+                "gameMap": 11,
+                "title": "Test 2",
+                "link": "https://www.youtube.com/embed/Fe8u2I3vmHU",
+                "description": "Hi"
+            }
+        ],
+        "pageable": {
+            "sort": {
+                "sorted": false,
+                "unsorted": true,
+                "empty": true
+            },
+            "pageNumber": 0,
+            "pageSize": 20,
+            "offset": 0,
+            "paged": true,
+            "unpaged": false
+        },
+        "totalPages": 1,
+        "totalElements": 2,
+        "last": true,
+        "first": true,
+        "sort": {
+            "sorted": false,
+            "unsorted": true,
+            "empty": true
+        },
+        "size": 20,
+        "number": 0,
+        "numberOfElements": 2,
+        "empty": false
+    }
+}

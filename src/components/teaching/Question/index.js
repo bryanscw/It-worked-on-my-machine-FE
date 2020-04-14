@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faCheck } from '@fortawesome/free-solid-svg-icons';
 
@@ -46,3 +47,12 @@ export default function Question(props) {
         </div>
     )
 }
+
+
+Question.propTypes = {
+    classes: PropTypes.string,
+    editable: PropTypes.bool.isRequired,
+    question: PropTypes.object.isRequired,
+    handleUpdate: PropTypes.func,
+    handleDelete: PropTypes.func,
+};

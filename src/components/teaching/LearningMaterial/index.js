@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -52,3 +53,11 @@ export default function LearningMaterial(props) {
         </div>
     )
 }
+
+LearningMaterial.propTypes = {
+    classes: PropTypes.string,
+    editable: PropTypes.bool.isRequired,
+    learningMaterial: PropTypes.object.isRequired,
+    handleUpdate: PropTypes.func,
+    handleDelete: PropTypes.func,
+};
