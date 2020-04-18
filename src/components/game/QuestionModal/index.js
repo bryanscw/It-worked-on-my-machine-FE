@@ -63,7 +63,7 @@ QuestionModal.propTypes = {
     onIncorrectAnswer: PropTypes.func.isRequired,
 
     answerResultFailed: PropTypes.bool,
-    answerResult: PropTypes.bool,
+    answerResult: PropTypes.object,
 
     submitAnswer: PropTypes.func.isRequired,
 }

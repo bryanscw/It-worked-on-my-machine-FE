@@ -1,10 +1,8 @@
 ### Example:
 
 ```js
-import MaterialTable from 'material-table';
-import { Router, withRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import { withReduxRouter } from '../../../utils/mock.js';
+
 const initialState = {
     usersReducer: {
         items: [
@@ -29,8 +27,12 @@ const initialState = {
         isLoading: false
     }   
 }
-withReduxRouter(<React.Fragment>
-                <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/> <AdminPage/>
-                </React.Fragment>, initialState).renderedComponent    
+
+withReduxRouter((
+    <>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+        <AdminPage/>
+    </>
+), initialState).renderedComponent    
 
 ```

@@ -39,9 +39,9 @@ exports[`should take a snapshot 1`] = `
           >
             <a
               class="nav-link"
-              href="/logout"
+              href="/login"
             >
-              Logout
+              Login
             </a>
           </li>
         </ul>

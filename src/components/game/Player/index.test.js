@@ -8,10 +8,10 @@ afterEach(cleanup);
 
 it("renders without crashing", () => {
     const div = document.createElement("div");
-    ReactDOM.render(<Player />, div);
+    ReactDOM.render(<Player position={[1, 1]} />, div);
 });
 
 it("should take a snapshot", () => {
-    const { asFragment } = render(<Player />);
-    expect(asFragment(<Player />)).toMatchSnapshot();
+    const { asFragment } = render(<Player position={[1, 1]} />);
+    expect(asFragment()).toMatchSnapshot();
 });

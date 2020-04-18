@@ -154,8 +154,12 @@ export const retrieveProgress = gameMapId => (dispatch, getState) => {
             dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.RETRIEVE, res.data));
         })
         .catch(err => {
-            displayError("Unable to retrieve progress")(dispatch);
-            dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.RETRIEVE));
+            if (err.response && err.response.status === 404) {
+                dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.RETRIEVE, null));
+            } else {
+                displayError("Unable to retrieve progress")(dispatch);
+                dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.RETRIEVE));
+            }
         });
     ;
 };
