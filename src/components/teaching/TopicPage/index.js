@@ -141,7 +141,7 @@ class TopicPage extends Component {
                         ? levels.map(level => 
                             <BasicCard
                                 key={level.id}
-                                editable={true}
+                                editable={!level.playable}
                                 classes="mb-4"
                                 details={level}
                                 badge={level.playable ?  <span className="badge badge-success">Playable</span> : <span className="badge badge-secondary">Unplayable</span>}

@@ -22,7 +22,10 @@ const initialState = {
         [ADDITIONAL_METHODS.REPORT]: true,
     },
     hasFailed: {},
-    answerResult: null,
+    answerResult: {
+        question: null,
+        isCorrect: null,
+    },
     leaderboard: [],
     report: [],
 };
@@ -151,8 +154,12 @@ export const retrieveProgress = gameMapId => (dispatch, getState) => {
             dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.RETRIEVE, res.data));
         })
         .catch(err => {
-            displayError("Unable to retrieve progress")(dispatch);
-            dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.RETRIEVE));
+            if (err.response && err.response.status === 404) {
+                dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.RETRIEVE, null));
+            } else {
+                displayError("Unable to retrieve progress")(dispatch);
+                dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.RETRIEVE));
+            }
         });
     ;
 };
@@ -176,6 +183,55 @@ export const updateProgress = (gameMapId, progress) => (dispatch, getState) => {
         });
 };
 
+// Delete progress and create a new one
+export const resetProgress = (gameMapId, progress) => (dispatch, getState) => {
+    dispatch(createApiAction(ENTITY_NAME, STATUSES.REQUEST, METHODS.DELETE));
+    const user = getUser(getState);
+
+    axios
+        .delete(
+            `${API_URL}/${ENTITY_NAME}/users/${user.email}/gameMaps/${gameMapId}/`,
+            getTokenConfig(getState),
+        )
+        .then(res => {
+            dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.DELETE, res.data));
+            createProgress(gameMapId, progress)(dispatch, getState);
+        })
+        .catch(err => {
+            displayError("Unable to delete progress")(dispatch);
+            dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.DELETE));
+        });
+    ;
+};
+
+export const createOrResetProgress = (gameMapId, progress) => (dispatch, getState) => {
+    dispatch(createApiAction(ENTITY_NAME, STATUSES.REQUEST, METHODS.RETRIEVE));
+    const user = getUser(getState);
+
+    axios
+        .get(
+            `${API_URL}/${ENTITY_NAME}/users/${user.email}/gameMaps/${gameMapId}/`,
+            getTokenConfig(getState),
+        )
+        .then(res => {
+            dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.RETRIEVE, res.data));
+            // Reset progress if there's an existing progress
+            resetProgress(gameMapId, progress)(dispatch, getState);
+        })
+        .catch(err => {
+            if (err.response && err.response.status === 404) {
+                dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, METHODS.RETRIEVE, null));
+                // Create progress if there's an existing progress
+                createProgress(gameMapId, progress)(dispatch, getState);
+
+            } else {
+                displayError("Unable to retrieve progress")(dispatch);
+                dispatch(createApiAction(ENTITY_NAME, STATUSES.FAILURE, METHODS.RETRIEVE));
+            }
+        });
+    ;
+};
+
 export const submitAnswer = (gameMapId, questionId, answer) => (dispatch, getState) => {
     dispatch(createApiAction(ENTITY_NAME, STATUSES.REQUEST, ADDITIONAL_METHODS.ANSWER));
     const user = getUser(getState);
@@ -188,7 +244,10 @@ export const submitAnswer = (gameMapId, questionId, answer) => (dispatch, getSta
                 getTokenConfig(getState)
             )
             .then(res => {
-                dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, ADDITIONAL_METHODS.ANSWER, res.data));
+                dispatch(createApiAction(ENTITY_NAME, STATUSES.SUCCESS, ADDITIONAL_METHODS.ANSWER, {
+                    question: questionId,
+                    isCorrect: res.data,
+                }));
             })
             .catch(err => {
                 displayError("Unable to submit answer")(dispatch);

@@ -1,11 +1,21 @@
-import { withRedux, withRouter, withReduxRouter } from './mock';
+import React from 'react';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { render } from '@testing-library/react';
 
+import rootReducer from '../redux/rootReducer';
+
 export const renderWithRedux = (component, initialState = {}) => {
-    const {
-        renderedComponent,
-        store,
-    } = withRedux(component, initialState);
+    const store = createStore(
+        rootReducer,
+        initialState,
+        applyMiddleware(thunk),
+    )
+
+    const renderedComponent = <Provider store={store}>{component}</Provider>;
 
     return {
         ...render(renderedComponent),
@@ -14,10 +24,8 @@ export const renderWithRedux = (component, initialState = {}) => {
 }
 
 export const renderWithRouter = (component, route = '/') => {
-    const {
-        renderedComponent,
-        history,
-    } = withRouter(component, route);
+    const history = createMemoryHistory({ initialEntries: [route] });
+    const renderedComponent = <Router history={history}>{component}</Router>;
 
     return {
         ...render(renderedComponent),
@@ -26,11 +34,18 @@ export const renderWithRouter = (component, route = '/') => {
 }
 
 export const renderWithReduxRouter = (component, initialState = {}, route = '/') => {
-    const {
-        renderedComponent,
-        history,
-        store,
-    } = withReduxRouter(component, initialState, route);
+    const store = createStore(
+        rootReducer,
+        initialState,
+        applyMiddleware(thunk),
+    )
+    const history = createMemoryHistory({ initialEntries: [route] });
+    
+    const renderedComponent = (
+        <Provider store={store}>
+            <Router history={history}>{component}</Router>
+        </Provider>
+    );
 
     return {
         ...render(renderedComponent),

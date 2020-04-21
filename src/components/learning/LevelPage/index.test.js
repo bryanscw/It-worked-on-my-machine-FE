@@ -36,6 +36,14 @@ beforeEach(() => {
 
         }
 
+        else if (/users/.test(url)) { // Progress
+            return Promise.reject({
+                response: {
+                    status: 404,
+                }
+            });
+        }
+
         return Promise.reject(new Error('not found'));
     });
 });
@@ -66,7 +74,7 @@ it('should load learning material', () => {
 it('should load and display the learning material', async () => {
     const { getByText } = renderWithReduxRouter(<LevelPage match={matchObject} />);
     const learningMaterial = await waitForElement(() => getByText('Learning Materials'));
-    expect(axiosMock.get).toHaveBeenCalledTimes(2);
+    expect(axiosMock.get).toHaveBeenCalledTimes(3);
     expect(learningMaterial).toBeTruthy();
 })
 

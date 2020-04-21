@@ -8,7 +8,7 @@ import Loader from '../../common/Loader';
 import ModalForm from '../../common/ModalForm';
 import BasicForm from '../BasicForm';
 import DeleteForm from '../DeleteForm';
-import { createTopic, updateTopic, deleteTopic, listTopics, selectTopicsLoading, selectTopics, selectTopicFailed } from '../../../redux/ducks/topics';
+import { createTopic, updateTopic, deleteTopic, listTopics, selectTopicsLoading, selectTopics, selectTopicsFailed } from '../../../redux/ducks/topics';
 import { CREATE, UPDATE, DELETE, EMPTY } from '../../../utils/constants';
 import { selectUser } from '../../../redux/ducks/auth';
 import BasicCard from '../../common/BasicCard';
@@ -165,7 +165,7 @@ TeachingHomePage.propTypes = {
 const mapStateToProps = state => ({
     user: selectUser(state),
     topicsLoading: selectTopicsLoading(state),
-    topicsFailed: selectTopicFailed(state),
+    topicsFailed: selectTopicsFailed(state),
     topics: selectTopics(state),
 });
 

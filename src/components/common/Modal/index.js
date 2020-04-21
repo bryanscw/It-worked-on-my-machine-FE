@@ -5,7 +5,7 @@ import 'bootstrap/dist/js/bootstrap.js';
 export class Modal extends Component {
     componentDidMount() {
         this.updateModal();
-        $(this.modalRef).on('hidden.bs.modal', e => this.props.onClose());
+        $(this.modalRef).on('hidden.bs.modal', e => this.props.isVisible && this.props.onClose());
     }
     
     componentDidUpdate(prevProps) {

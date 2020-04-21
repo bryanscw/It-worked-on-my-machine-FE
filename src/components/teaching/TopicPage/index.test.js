@@ -22,12 +22,14 @@ beforeEach(() => {
                 {
                     id: 1,
                     title: "Adding 1 to 100",
-                    description: "Smol numbers."
+                    description: "Smol numbers.",
+                    playable: false,
                 },
                 {
                     id: 2,
                     title: "Adding 1 to 1000",
-                    description: "Big numbers."
+                    description: "Big numbers.",
+                    playable: false,
                 }
             ]
         }

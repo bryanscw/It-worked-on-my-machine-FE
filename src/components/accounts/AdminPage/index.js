@@ -27,8 +27,8 @@ class AdminPage extends Component {
             return <Loader />;
 
         return (
-            <div className="container">
-                <MaterialTable
+            <div className="container" data-test="adminTable">
+                <MaterialTable 
                     title="Account Management System"
                     columns={[
                         {
@@ -85,7 +85,6 @@ AdminPage.propTypes = {
     usersFailed: PropTypes.bool,
     /** An array of users objects loaded by the `listUsers` action creator */
     users: PropTypes.array.isRequired,
-
     /** An action creator for loading accounts from the server*/
     listUsers: PropTypes.func.isRequired,
     /** An action creator for creating a user account */

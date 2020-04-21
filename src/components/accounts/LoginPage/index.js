@@ -100,7 +100,7 @@ class LoginPage extends Component {
         } = this.props;
 
         return (
-            <div className={classes.main}>
+            <div className={classes.main} data-test="loginContainer">
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
                     <img src={MazematicsIcon} className={classes.icon} alt="Mazematic Icon" />
@@ -108,6 +108,7 @@ class LoginPage extends Component {
                         <img src={PokemonIcon} className={classes.avatar} alt="Pokemon Icon" />
                         <form className={classes.form} noValidate onSubmit={this.handleSubmit}>
                             <TextField
+                                data-testid = "usernameField"
                                 onChange={this.handleChange}
                                 defaultValue={username}
                                 variant="outlined"
@@ -121,6 +122,7 @@ class LoginPage extends Component {
                                 autoFocus
                             />
                             <TextField
+                                data-testid = "passwordField"
                                 onChange={this.handleChange}
                                 defaultValue={password}
                                 variant="outlined"
@@ -134,6 +136,7 @@ class LoginPage extends Component {
                                 autoComplete="current-password"
                             />
                             <Button
+                                data-testid = "loginButton"
                                 type="submit"
                                 fullWidth
                                 variant="contained"
@@ -159,7 +162,7 @@ LoginPage.propTypes = {
 };
 
 const dispatchers = {
-    authenticateLogin,
+    authenticateLogin
 };
 
 export default connect(() => ({}), dispatchers)(withStyles(styles)(LoginPage));

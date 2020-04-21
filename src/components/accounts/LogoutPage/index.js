@@ -17,7 +17,7 @@ export class LogoutPage extends Component {
             <div className="container">
                 <h1>You have logged out</h1>
                 <p>Thanks for visiting.</p>
-                <Link className="btn btn-primary" to="/login">Login</Link>
+                <Link className="btn btn-primary"data-testid="loginbtn" to="/login">Login</Link>
             </div>
         )
     }

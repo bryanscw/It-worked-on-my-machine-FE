@@ -99,6 +99,7 @@ class Map extends Component {
                 ref={mapRef => this.mapRef = mapRef}
                 onKeyDown={this.props.onKeyDown}
                 tabIndex="0"
+                id="map"
                 >
                 {this.props.tiles.map((row, i) => (
                     <MapRow key={i} tiles={row} />

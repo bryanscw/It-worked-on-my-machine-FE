@@ -35,7 +35,7 @@ export class Header extends Component {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        { user ? authLinks : guestLinks }
+                        { user && Object.keys(user).length !== 0 ? authLinks : guestLinks }
                     </div>
                 </div>
             </nav>

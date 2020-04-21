@@ -24,6 +24,12 @@ export class GamePage extends Component {
         this.props.listQuestions(levelId);
     }
 
+    handleCompleteGame = () => {
+        const topicId = parseInt(this.props.match.params.topicId);
+        const levelId = parseInt(this.props.match.params.levelId);
+        this.props.history.push(`/topics/${topicId}/levels/${levelId}`);
+    }
+
     render() {
         const {
             levelLoading,
@@ -50,7 +56,7 @@ export class GamePage extends Component {
                     <FontAwesomeIcon icon={faChevronLeft}/> Back to Level Page
                 </Link>
                 <h1>Game</h1>
-                <World levelId={level.id} tiles={tiles} questions={questions} />
+                <World levelId={level.id} tiles={tiles} questions={questions} onCompleteGame={this.handleCompleteGame} />
                 {/* <Timer/> */}
                     {/* <ReactPlayer
                 width="0%"

@@ -5,44 +5,45 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import rootReducer from '../redux/rootReducer';
+const authReducer = {
+    user: {
+        email: "test@test.com"
+    },
+    access_token: "123",
+}
 
 export const withRedux = (component, initialState = {}) => {
     const store = createStore(
-        rootReducer,
-        initialState,
+        (state = {}, action) => state,
+        {
+            ...initialState,
+            authReducer
+        },
         applyMiddleware(thunk),
     )
 
-    return {
-        renderedComponent: <Provider store={store}>{component}</Provider>,
-        store
-    };
+    return <Provider store={store}>{component}</Provider>;
 }
 
 export const withRouter = (component, route = '/') => {
     const history = createMemoryHistory({ initialEntries: [route] });
-    return {
-        renderedComponent: <Router history={history}>{component}</Router>,
-        history
-    };
+    return <Router history={history}>{component}</Router>;
 }
 
 export const withReduxRouter = (component, initialState = {}, route = '/') => {
     const store = createStore(
-        rootReducer,
-        initialState,
+        (state = {}, action) => state,
+        {
+            ...initialState,
+            authReducer
+        },
         applyMiddleware(thunk),
     )
     const history = createMemoryHistory({ initialEntries: [route] });
 
-    return {
-        renderedComponent: (
-            <Provider store={store}>
-                <Router history={history}>{component}</Router>
-            </Provider>
-        ),
-        history,
-        store
-    };
+    return (
+        <Provider store={store}>
+            <Router history={history}>{component}</Router>
+        </Provider>
+    );
 }

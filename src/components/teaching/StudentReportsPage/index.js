@@ -56,9 +56,10 @@ export class StudentReportsPage extends Component {
                         name
                     },
                     attemptCount
-                } = attempts[i];
-
-                csvRow[name] = attemptCount;
+                } = attempts[j];
+                
+                if (attemptCount !== 0)
+                    csvRow[name] = attemptCount;
             }
 
             csvData.push(csvRow);

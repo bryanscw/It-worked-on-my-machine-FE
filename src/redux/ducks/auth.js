@@ -131,22 +131,19 @@ export const authenticateLogin = userData => dispatch => {
     formdata.append("password", userData.password);
     formdata.append("grant_type", "password");
 
-    fetch(`${API_URL}/oauth/token`, {
-        method: 'POST',
-        headers: {
-            'Authorization': `Basic ${btoa('my-client:my-secret')}`
-        },
-        body: formdata,
-    })
+    axios
+        .post(
+            `${API_URL}/oauth/token`,
+            formdata,
+            {
+                headers: {
+                    'Authorization': `Basic ${btoa('my-client:my-secret')}`
+                }
+            },
+        )
         .then(res => {
-            if (!res.ok)
-                throw res
-            
-            return res.json()
-        })
-        .then(result => {
-            fetchMe(result.access_token)(dispatch);
-            dispatch(loginAction(result));
+            fetchMe(res.data.access_token)(dispatch);
+            dispatch(loginAction(res.data));
         })
         .catch(err => {
             displayError("Unable to login")(dispatch);
@@ -159,22 +156,19 @@ export const refreshTokenLogin = () => (dispatch, getState) => {
     formdata.append("refresh_token", getState().authReducer.refresh_token);
     formdata.append("grant_type", "refresh_token");
 
-    fetch(`${API_URL}/oauth/token`, {
-        method: 'POST',
-        headers: {
-            'Authorization': `Basic ${btoa('my-client:my-secret')}`
-        },
-        body: formdata,
-    })
+    axios
+        .post(
+            `${API_URL}/oauth/token`,
+            formdata,
+            {
+                headers: {
+                    'Authorization': `Basic ${btoa('my-client:my-secret')}`
+                }
+            },
+        )
         .then(res => {
-            if (!res.ok)
-                throw res
-            
-            return res.json()
-        })
-        .then(result => {
-            fetchMe(result.access_token)(dispatch);
-            dispatch(loginAction(result));
+            fetchMe(res.data.access_token)(dispatch);
+            dispatch(loginAction(res.data));
         })
         .catch(err => {
             displayError("Unable to login")(dispatch);
@@ -183,10 +177,11 @@ export const refreshTokenLogin = () => (dispatch, getState) => {
 };
 
 export const logout = () => (dispatch, getState) => {
-    fetch(`${API_URL}/oauth/revoke`, {
-        method: 'DELETE',
-        ...getTokenConfig(getState)
-    })
+    axios
+        .delete(
+            `${API_URL}/oauth/revoke`,
+            getTokenConfig(getState)
+        )
         .then(() => {
             dispatch(logoutAction());
         })

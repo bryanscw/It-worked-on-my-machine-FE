@@ -13,6 +13,7 @@ exports[`should take a snapshot 1`] = `
     </p>
     <a
       class="btn btn-primary"
+      data-testid="loginbtn"
       href="/login"
     >
       Login

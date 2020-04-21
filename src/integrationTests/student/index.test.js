@@ -25,18 +25,18 @@ describe('Integration test for students', () => {
     });
 
     it('should display login page', async done => {
-        const { getByText } = container;
-        const login = await waitForElement(() => getByText(/login/i));
+        const { getByTestId } = container;
+        const login = await waitForElement(() => getByTestId("loginButton"));
         expect(login).toBeVisible();
         done();
     })
 
     it('should be able to login', async done => {
-        global.fetch = jest.fn().mockImplementation(() => Promise.resolve({ok: true, json: () => tokenJson}));
+        axiosMock.post.mockResolvedValueOnce(tokenJson);
         axiosMock.post.mockResolvedValueOnce(userJson);
         axiosMock.get.mockResolvedValueOnce(topicsJson);
 
-        const { getByLabelText, getByText } = container;
+        const { getByLabelText, getByText, getByTestId } = container;
 
         const loginDetails = {
             username: 'user1@test.com',
@@ -49,7 +49,7 @@ describe('Integration test for students', () => {
         fireEvent.change(getByLabelText(/password/i), {
             target: {value: loginDetails.password},
         })
-        fireEvent.click(getByText(/login/i).closest('button'));
+        fireEvent.click(getByTestId("loginButton"));
 
         const topics = await waitForElement(() => getByText(/topics/i));
         const addition = await waitForElement(() => getByText(/addition/i));
@@ -57,8 +57,7 @@ describe('Integration test for students', () => {
         expect(topics).toBeVisible();
         expect(addition).toBeVisible();
 
-        expect(global.fetch).toHaveBeenCalledTimes(1);
-        expect(axiosMock.post).toHaveBeenCalledTimes(1);
+        expect(axiosMock.post).toHaveBeenCalledTimes(2);
         expect(axiosMock.get).toHaveBeenCalledTimes(1);
         done();
     });
@@ -91,19 +90,25 @@ describe('Integration test for students', () => {
                 return Promise.resolve(levelJson);
             else if (/learningMaterials/.test(url))
                 return Promise.resolve(learningMaterialsJson);
+            else if (/users/.test(url)) // Progress
+                return Promise.reject({
+                    response: {
+                        status: 404,
+                    }
+                });
         });
 
         const { getByText } = container;
 
         fireEvent.click(getByText(/addition from 1 to 1000/i).closest('a'));
         
-        const learningMaterials = await waitForElement(() => getByText(/view learning materials/i));
+        const learningMaterials = await waitForElement(() => getByText(/learning materials/i));
         const game = await waitForElement(() => getByText(/play game/i));
 
         expect(learningMaterials).toBeVisible();
         expect(game).toBeVisible();
 
-        expect(axiosMock.get).toHaveBeenCalledTimes(2);
+        expect(axiosMock.get).toHaveBeenCalledTimes(3);
         done();
     });
 
@@ -128,13 +133,19 @@ describe('Integration test for students', () => {
                 return Promise.resolve(levelJson);
             else if (/learningMaterials/.test(url))
                 return Promise.resolve(learningMaterialsJson);
+            else if (/users/.test(url)) // Progress
+                return Promise.reject({
+                    response: {
+                        status: 404,
+                    }
+                });
         });
 
         const { getByText } = container;
 
         fireEvent.click(getByText(/back/i).closest('a'));
         
-        const learningMaterials = await waitForElement(() => getByText(/view learning materials/i));
+        const learningMaterials = await waitForElement(() => getByText(/learning materials/i));
         const game = await waitForElement(() => getByText(/play game/i));
 
         expect(learningMaterials).toBeVisible();
@@ -142,40 +153,21 @@ describe('Integration test for students', () => {
         done();
     });
 
-    it('should be able to play game', async done => {
-        axiosMock.get.mockImplementation(url => {
-            if (/topics/.test(url))
-                return Promise.resolve(levelJson);
-            else if (/questions/.test(url))
-                return Promise.resolve(questionsJson);
-        });
-
-        const { getByText } = container;
-
-        fireEvent.click(getByText(/play game/i).closest('a'));
-
-        const game = await waitForElement(() => getByText(/game/i));
-
-        expect(game).toBeVisible();
-        expect(axiosMock.get).toHaveBeenCalledTimes(2);
-        done();
-    });
-
     it('should be able to logout', async done => {
-        global.fetch = jest.fn().mockImplementation(() => Promise.resolve({ok: true, json: () => ({})}));
+        axiosMock.delete.mockResolvedValueOnce({});
 
-        const { getByText } = container;
+        const { getByText, getByTestId } = container;
 
         fireEvent.click(getByText(/logout/i).closest('a'));
 
-        const loginButton = await waitForElement(() => getByText(/login/i).closest('a'));
-        fireEvent.click(loginButton);
+        const loginLink = await waitForElement(() => getByText(/login/i).closest('a'));
+        fireEvent.click(loginLink);
         
-        const login = await waitForElement(() => getByText(/login/i));
+        const loginButton = await waitForElement(() => getByTestId("loginButton"));
 
-        expect(login).toBeVisible();
+        expect(loginButton).toBeVisible();
 
-        expect(global.fetch).toHaveBeenCalledTimes(1);
+        expect(axiosMock.delete).toHaveBeenCalledTimes(1);
         done();
     });
 });

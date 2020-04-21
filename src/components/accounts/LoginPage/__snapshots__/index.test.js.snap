@@ -4,6 +4,7 @@ exports[`should take a snapshot 1`] = `
 <DocumentFragment>
   <div
     class="LoginPage-main-1"
+    data-test="loginContainer"
   >
     <main
       class="MuiContainer-root MuiContainer-maxWidthXs"
@@ -27,6 +28,7 @@ exports[`should take a snapshot 1`] = `
         >
           <div
             class="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
+            data-testid="usernameField"
           >
             <label
               class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined Mui-focused Mui-focused Mui-required Mui-required"
@@ -70,6 +72,7 @@ exports[`should take a snapshot 1`] = `
           </div>
           <div
             class="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
+            data-testid="passwordField"
           >
             <label
               class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined Mui-required Mui-required"
@@ -113,6 +116,7 @@ exports[`should take a snapshot 1`] = `
           </div>
           <button
             class="MuiButtonBase-root MuiButton-root MuiButton-contained LoginPage-submit-7 MuiButton-containedPrimary MuiButton-fullWidth"
+            data-testid="loginButton"
             tabindex="0"
             type="submit"
           >

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import formatDuration from "format-duration";
 import PropTypes from 'prop-types'
 
 import { fetchLeaderboard, selectLeaderboardLoading, selectLeaderboardFailed, selectLeaderboard } from '../../../redux/ducks/progress';
@@ -44,7 +45,7 @@ export class LeaderboardPage extends Component {
                     <thead className="thead-light">
                         <tr>
                             <th scope="col">Name</th>
-                            <th scope="col">Timing (in minutes)</th>
+                            <th scope="col">Timing</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,7 +55,7 @@ export class LeaderboardPage extends Component {
                                     leaderboard.map(row =>
                                         <tr key={row.name}>
                                             <th scope="row">{row.name}</th>
-                                            <td>{row.timing.toFixed(2)}</td>
+                                            <td>{formatDuration(row.timing)}</td>
                                         </tr>
                                     )
                                 )
